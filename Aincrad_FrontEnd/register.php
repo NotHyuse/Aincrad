@@ -39,6 +39,7 @@ if(isset($_POST["Login"])){
         exit();
     }
     else{
+        header('login.php');
         echo "Incorrect Username or Password";
     }
 }

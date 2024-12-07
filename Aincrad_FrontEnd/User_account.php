@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,7 +165,7 @@
     <div class="sidebar">
       <div class="menu-item">
         <img src="user.png" alt="My Account">
-        <a href="User account.html" class="click">MY ACCOUNT</a>
+        <a href="User_account.php" class="click">MY ACCOUNT</a>
       </div>
       <div class="menu-item">
         <img src="dollar-symbol.png" alt="Price Rate">
@@ -186,11 +191,33 @@
     <div class="content">
       <h1>My Account</h1>
       <div class="form">
-        <label for="name">Name:</label>
+        <label for="name">Name: <?php 
+       if(isset($_SESSION['Customer_Username'])){
+        $username=$_SESSION['Customer_Username'];
+        $query=mysqli_query($conn, "SELECT Customer_Fullname FROM `customer` WHERE customer.Customer_Username='$username'");
+        while($row=mysqli_fetch_array($query)){
+            echo $row['Customer_Fullname'];}}
+            ?>
+        </label>
         <label for="balance">Balance</label>
-        <label for="account-id">Account ID</label>
+        <label for="account-id">Account ID: <?php 
+        if(isset($_SESSION['Customer_Username'])){
+        $username=$_SESSION['Customer_Username'];
+        $query=mysqli_query($conn, "SELECT Customer_ID_PK FROM `customer` WHERE customer.Customer_Username='$username'");
+        while($row=mysqli_fetch_array($query)){
+            echo $row['Customer_ID_PK'];}}
+            ?>
+        </label>
         <label for="duration-time">Duration Time</label>
-        <label for="account-ign">Account IGN</label>
+        <label for="account-ign">Account IGN:
+          <?php 
+       if(isset($_SESSION['Customer_Username'])){
+        $username=$_SESSION['Customer_Username'];
+        $query=mysqli_query($conn, "SELECT 'Customer_Username' FROM `customer` WHERE customer.Customer_Username='$username'");
+        while($row=mysqli_fetch_array($query)){
+            echo $username;}}
+            ?>
+        </label>
         <label for="spending">Spending</label>
         <label for="birthday">Birthday</label>
         <label for="phone-number">Phone Number</label>
@@ -199,7 +226,7 @@
           <button>CONFIRM</button>
         </div>
       </div>
-      <div class="close-button"><a href="User menu.html">✖</a></div>
+      <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>
   </div>
 </body>

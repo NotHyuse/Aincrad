@@ -185,7 +185,7 @@ include("connect.php");
     <div class="sidebar">
       <div class="menu-item">
         <img src="user.png" alt="My Account">
-        <a href="User account.html" class="click">MY ACCOUNT</a>
+        <a href="User_account.php" class="click">MY ACCOUNT</a>
       </div>
       <div class="menu-item">
         <img src="dollar-symbol.png" alt="Price Rate">
@@ -215,7 +215,7 @@ include("connect.php");
         <img src="Logo.png" alt="Logo">
       </div>
       <div class="Logout">
-        <button><i class="bi bi-box-arrow-left"></i><a href = "index.php">LOG OUT</button>
+        <button><i class="bi bi-box-arrow-left"></i><a href = "login.php">LOG OUT</button>
       </div>
     </div>
   </div>
