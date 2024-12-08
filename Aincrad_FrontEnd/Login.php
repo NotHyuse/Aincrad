@@ -54,6 +54,7 @@ if(isset($_POST["Login"])){
         session_start();
         $row=$result->fetch_assoc();
         $_SESSION['Customer_Username'] = $row['Customer_Username'];
+        $_SESSION['Login_Time'] = time();
         header('Location: user_menu.php');
         exit();
     }

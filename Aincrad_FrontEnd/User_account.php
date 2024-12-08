@@ -208,17 +208,17 @@ include("connect.php");
             echo $row['Customer_ID_PK'];}}
             ?>
         </label>
-        <label for="duration-time">Duration Time</label>
+        <label for="duration-time">Duration Time: <span id="duration-time"></span></label>
         <label for="account-ign">Account IGN:
           <?php 
-       if(isset($_SESSION['Customer_Username'])){
-        $username=$_SESSION['Customer_Username'];
-        $query=mysqli_query($conn, "SELECT 'Customer_Username' FROM `customer` WHERE customer.Customer_Username='$username'");
-        while($row=mysqli_fetch_array($query)){
-            echo $username;}}
-            ?>
+              if(isset($_SESSION['Customer_Username'])){
+                $username=$_SESSION['Customer_Username'];
+                $query=mysqli_query($conn, "SELECT 'Customer_Username' FROM `customer` WHERE customer.Customer_Username='$username'");
+                while($row=mysqli_fetch_array($query)){
+                    echo $username;}}
+          ?>
         </label>
-        <label for="spending">Spending</label>
+        <label for="spending">Spending: <span id="payment"></span> </label>
         <label for="birthday">Birthday</label>
         <label for="phone-number">Phone Number</label>
         <label for="email-address">Email Address</label>
@@ -229,5 +229,48 @@ include("connect.php");
       <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>
   </div>
+  <script>
+      // Get the server-side login time
+      const loginTime = <?php echo isset($_SESSION['Login_Time']) ? $_SESSION['Login_Time'] : 'null'; ?>;
+
+      function calculatePayment(elapsedTime) {
+          let payment = 0;
+
+          if (elapsedTime <= 20 * 60) {
+              payment = 20;
+          } else {
+              const extraTime = elapsedTime - 20 * 60; // Time beyond the first 20 minutes
+              const additionalMinutes = Math.floor(extraTime / 60); // Convert seconds to minutes
+              payment = 20 + (additionalMinutes * 0.67); // ₱0.67 per minute after the first 20 minutes
+          }
+
+          return payment.toFixed(2); // Format payment to two decimal places
+      }
+
+      if (loginTime !== null) {
+          // Update the elapsed time and payment every second
+          setInterval(() => {
+              const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+              const elapsedTime = currentTime - loginTime; // Elapsed time in seconds
+
+              const hours = Math.floor(elapsedTime / 3600);
+              const minutes = Math.floor((elapsedTime % 3600) / 60);
+              const seconds = elapsedTime % 60;
+
+              // Format the time as HH:MM:SS
+              const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+              // Update the label for duration time
+              document.getElementById('duration-time').textContent = displayTime;
+
+              // Calculate payment and update the payment label
+              const payment = calculatePayment(elapsedTime);
+              document.getElementById('payment').textContent = `₱${payment}`;
+          }, 1000);
+      } else {
+          document.getElementById('duration-time').textContent = 'N/A';
+          document.getElementById('payment').textContent = '₱0';
+      }
+  </script>
 </body>
 </html>
