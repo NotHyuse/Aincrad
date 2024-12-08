@@ -1,3 +1,6 @@
+<?php
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +19,7 @@
 <body>
 
     <div class="wrapper" id="signIn">
-        <form method = "post" action="register.php">
+        <form method = "post" action="login.php">
             <h1>Welcome</h1>
             <h2>BACK!</h2>
             <div class="input-box">
@@ -31,10 +34,67 @@
             <button type="submit" class="btn" value="Login" name="Login">Login</button>
 
             <div class="register-link">
-                <p>Don't have an account?<a href="index.php">Signup</a></p>
+                <p>Don't have an account?<a href="index.php">Sign up</a></p>
             </div>
             <img src="Logo.png" alt="Sample Image" class="profile-image">
         </form>
     </div>
 </body>
 </html>
+
+<?php  
+if(isset($_POST["Login"])){
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+    $password=md5($password);
+
+    $sql = "SELECT * FROM customer where Customer_Username = '$username' and Customer_Password = '$password'";
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        session_start();
+        $row=$result->fetch_assoc();
+        $_SESSION['Customer_Username'] = $row['Customer_Username'];
+        header('Location: user_menu.php');
+        exit();
+    }
+    else{
+        echo "<script>
+            document.body.innerHTML += `
+            <div id='errorModal' style='
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: white;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                z-index: 1000;'>
+                <p>Ivalid Login Attempt: Incorrect Username or Password</p>
+                <button onclick='closeModal()' style='
+                    background-color: #007BFF;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;'>OK</button>
+            </div>
+            <div style='
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;' onclick='closeModal()'></div>
+            `;
+            function closeModal() {
+                document.getElementById('errorModal').remove();
+                window.location.href = 'login.php';
+            }
+        </script>
+        ";
+    }
+}
+?>
