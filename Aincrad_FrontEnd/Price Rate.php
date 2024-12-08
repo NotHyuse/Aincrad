@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
-  <title>Edit Password UI</title>
+  <title>Price Rate UI</title>
   <style>
     * {
       margin: 0;
@@ -21,6 +24,7 @@
     align-items: center;
     min-height: 100vh;
     background: url(wp.gif);
+    opacity: 0.9;
     background-size: cover;
     background-position: center;
     }
@@ -29,8 +33,7 @@
       width: 800px;
       height: 500px;
       display: flex;
-      background: url(background.png);
-      opacity: 0.9;
+      background: url(background.png);;
       background-size: cover;
       background-position: center;
       box-shadow: 0 0 100px rgb(255, 255, 255);
@@ -77,87 +80,53 @@
     .content h1 {
       font-size: 40px;
       font-weight: bold;
-      margin-left: 30px;
-      margin-top: 20px;
       margin-bottom: 20px;
       color: white;
+      margin-left: 30px;
+      margin-top: 20px;
       font-family: 'League Spartan';
     }
 
     .form-container {
       display: flex;
-      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
       gap: 20px;
-      margin-top: 20px;
-      margin-left: 30px;
-      width: 50%;
+      margin-bottom: 100px;
     }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
+    .form {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
       gap: 10px;
+      overflow-y: auto;
+      max-height: 350px;
+      padding-right: 10px;
     }
 
-    .form-group label {
-      font-weight: bold;
-      font-size: 16px;
-      color: white;
-    }
-
-    .form-group input {
-      width: 100%;
+    .form .time-period,
+    .form .price-rate {
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      font-size: 14px;
-    }
-
-    .form-group input[type="password"] {
-      background-color: #f9f9f9;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    .form-actions button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
       border-radius: 5px;
-      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+      width: 70%;
+      height: 40px;
+      color: white;
+      margin-left: 20px;
     }
 
-    .form-actions .cancel-button {
-        background-color: white;
-        color: black;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 20px;
-        transition: background-color 0.3s, transform 0.3s; 
-        margin-left: 250px;
-        width: 150px;
-        margin-top: 40px;
-        margin-bottom: 40px;
+
+    .confirm-button {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
     }
 
-    .form-actions .cancel-button:hover {
-      background-color: white;
-      transform: scale(1.05); 
-      }
-
-    .form-actions .confirm-button {
-      background-color: white;
-        color: black;
+    .confirm-button button {
+        background-color: black;
+        color: white;
         border: none;
         padding: 10px 20px;
         text-align: center;
@@ -174,10 +143,10 @@
         margin-bottom: 40px;
     }
 
-    .form-actions .confirm-button:hover {
+    .confirm-button button:hover {
       background-color: white;
-      transform: scale(1.05);
-      }
+      transform: scale(1.1);
+    }
 
     .close-button a {
       position: absolute;
@@ -208,15 +177,15 @@
         <div class="sidebar">
           <div class="menu-item">
             <img src="user.png" alt="My Account">
-            <a href="User account.html" class="click">MY ACCOUNT</a>
+            <a href="User_account.php" class="click">MY ACCOUNT</a>
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price Rate.html" class="click">PRICE RATE</a>
+            <a href="Price Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit Password.html" class="click">EDIT PASSWORD</a>
+            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -230,33 +199,36 @@
             <img src="restaurant.png" alt="Food Menu">
             <a href="Food Menu.html" class="click">FOOD MENU</a>
           </div>
-        </div>
-
+        </div>  
     <div class="content">
-      <h1>Edit Password</h1>
+      <h1>Price Rate</h1>
       <div class="form-container">
-        <div class="form-group">
-          <label for="old-password">OLD PASSWORD</label>
-          <input type="password" id="old-password" placeholder="Enter old password">
+        <div class="form">
+        <label style="color: white; margin-left: 30px;" for="Time Period">Time Period</label>
+        <label style="color: white; margin-left: 10px;" for="Price Rate">Price Rate</label>
+          <div class="time-period">08:00 AM - 9:00 AM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">9:00 AM - 10:00 AM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">10:00 AM - 11:00 AM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">11:00 AM - 12:00 PM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">12:00 PM - 01:00 PM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">01:00 PM - 02:00 PM</div>
+          <div class="price-rate">₱39</div>
+          <div class="time-period">02:00 PM - 03:00 PM</div>
+          <div class="price-rate">₱39</div>
         </div>
-
-        <div class="form-group">
-          <label for="new-password">NEW PASSWORD</label>
-          <input type="password" id="new-password" placeholder="Enter new password">
-        </div>
-
-        <div class="form-group">
-          <label for="confirm-password">CONFIRM PASSWORD</label>
-          <input type="password" id="confirm-password" placeholder="Confirm new password">
+        <div class="scrollbar">
+          <div class="thumb"></div>
         </div>
       </div>
-
-      <div class="form-actions">
-        <button class="cancel-button"><a href="User menu.html" style="text-decoration: none; color: black;">Cancel</a></button>
-        <button class="confirm-button">CONFIRM</button>
+      <div class="confirm-button">
+        <button><a href="User_menu.php" style="text-decoration: none; color: white;">CONFIRM</a></button>
       </div>
-
-      <div class="close-button"><a href="User menu.html">✖</a></div>
+      <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>
   </div>
 </body>

@@ -189,11 +189,11 @@ include("connect.php");
       </div>
       <div class="menu-item">
         <img src="dollar-symbol.png" alt="Price Rate">
-        <a href="Price Rate.html" class="click">PRICE RATE</a>
+        <a href="Price Rate.php" class="click">PRICE RATE</a>
       </div>
       <div class="menu-item">
         <img src="unlock.png" alt="Edit Password">
-        <a href="Edit Password.html" class="click">EDIT PASSWORD</a>
+        <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
       </div>
       <div class="menu-item">
         <img src="credit-card.png" alt="Recharge Card">

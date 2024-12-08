@@ -71,7 +71,7 @@ if(isset($_POST["Login"])){
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 text-align: center;
                 z-index: 1000;'>
-                <p>Ivalid Login Attempt: Incorrect Username or Password</p>
+                <p>Invalid Login Attempt: Incorrect Username or Password</p>
                 <button onclick='closeModal()' style='
                     background-color: #007BFF;
                     color: white;
