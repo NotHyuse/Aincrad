@@ -2,64 +2,6 @@
 include("connect.php");
 ?>
 
-
-<?php  
-if(isset($_POST["Login"])){
-    $username=$_POST['username'];
-    $password=$_POST['password'];
-    $password=md5($password);
-
-    $sql = "SELECT * FROM customer where Customer_Username = '$username' and Customer_Password = '$password'";
-    $result = $conn->query($sql);
-    if($result->num_rows > 0){
-        session_start();
-        $row=$result->fetch_assoc();
-        $_SESSION['Customer_Username'] = $row['Customer_Username'];
-        $_SESSION['Login_Time'] = time();
-        header('Location: user_menu.php');
-        exit();
-    }
-    else{
-        echo "<script>
-            document.body.innerHTML += `
-            <div id='errorModal' style='
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                padding: 20px;
-                background-color: white;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                text-align: center;
-                z-index: 1000;'>
-                <p>Invalid Login Attempt: Incorrect Username or Password</p>
-                <button onclick='closeModal()' style='
-                    background-color: #007BFF;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    cursor: pointer;
-                    border-radius: 5px;'>OK</button>
-            </div>
-            <div style='
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 999;' onclick='closeModal()'></div>
-            `;
-            function closeModal() {
-                document.getElementById('errorModal').remove();
-                window.location.href = 'login.php';
-            }
-        </script>
-        ";
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,8 +34,8 @@ body {
 }
 
 .wrapper {
-    height: 1000px;
-    width: 1000px;
+    height: 800px;
+    width: 1100px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
@@ -178,22 +120,6 @@ body {
     margin-left: 90px;
 }
 
-.wrapper .register-link {
-    font-size: 20px;
-    text-align: right;
-    margin: 20px 0 15px;
-    color: whitesmoke;
-    margin-right: 550px;
-}
-
-.register-link p a {
-    color: whitesmoke;
-    text-decoration: none;
-    font-weight: 600;
-    text-decoration: underline;
-    margin-left: 5px;
-}
-
 .Robot {
     width: 500px;
     height: 400px;
@@ -205,8 +131,9 @@ body {
     width: 500px;
     height: 300px;
     display: block;
-    margin-left: 400px;
+    margin-left: 500px;
     margin-right: auto;
+    margin-top: -350px;
 }
 
 </style>
@@ -215,7 +142,7 @@ body {
 <body>
 
     <div class="wrapper" id="signIn">
-        <form method = "post" action="index.php">
+        <form method = "post" action="Index.php">
             <h1>Welcome</h1>
             <h2>BACK!</h2>
             <div class="input-box">
@@ -228,12 +155,66 @@ body {
             </div> 
         </img src="Welcome!.png" alt="Image" class="Robot">
             <button type="submit" class="btn" value="Login" name="Login">Login</button>
-
-            <div class="register-link">
-                <p>Don't have an account?<a href="Register.php">Sign up</a></p>
-            </div>
             <img src="Logo.png" alt="Sample Image" class="profile-image">
         </form>
     </div>
 </body>
 </html>
+
+<?php  
+if(isset($_POST["Login"])){
+    $username=$_POST['username'];
+    $password=md5($_POST['password']);
+
+    $sql = "SELECT * FROM customer where Customer_Username = '$username' and Customer_Password = '$password'";
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        session_start();
+        $row=$result->fetch_assoc();
+        $_SESSION['Customer_Username'] = $row['Customer_Username'];
+        $_SESSION['Login_Time'] = time();
+        header('Location: User_Menu.php');
+        exit();
+    }
+    else{
+        echo "<script>
+            document.body.innerHTML += `
+            <div id='errorModal' style='
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: white;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                z-index: 1000;'>
+                <p>Invalid Login Attempt: Incorrect Username or Password</p>
+                <button onclick='closeModal()' style='
+                    background-color: #007BFF;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;'>OK</button>
+            </div>
+            <div style='
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;' onclick='closeModal()'></div>
+            `;
+            function closeModal() {
+                document.getElementById('errorModal').remove();
+                window.location.href = 'Index.php';
+            }
+        </script>
+        ";
+    }
+}
+
+?>

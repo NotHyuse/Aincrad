@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include("connect.php");
 ?>
 
@@ -59,39 +60,31 @@ if(isset($_POST['signUp'])){
         $insertQuery = "INSERT INTO customer(Customer_FirstName, Customer_LastName, Customer_Username, Customer_Birthday, Customer_Email, Customer_PhoneNumber, Customer_Password)
                         VALUES('$firstName', '$lastName', '$username', '$birthday', '$email', '$PhoneNumber', '$password')";
             if($conn->query($insertQuery)==TRUE){
-                header("location: login.php");
+                header("location: User_Menu.php");
             }
             else{
                 echo "Error".$conn->error;
             }
         }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset ="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almoranas Gaming</title>
-    <link rel="stylesheet" href="style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
+  <style>
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-body {
+    body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,164 +92,165 @@ body {
     background: url(wp.gif);
     background-size: cover;
     background-position: center;
-}
+    }
+    .form-container {
+      width: 700px;
+      background: url(background.png);
+      opacity: 0.9;
+      background-size: cover;
+      padding: 20px;
+      border-radius: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 100px rgb(255, 255, 255);
+      position: relative;
+    }
+    .form-container h1 {
+      font-size: 30px;
+      margin-bottom: 50px;
+      text-align: left;
+      font-weight: bold;
+      color: white;
+    }
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .form-group {
+      flex: 1;
+      margin-right: 10px;
+    }
+    .form-group:last-child {
+      margin-right: 0;
+    }
+    .form-group label {
+      font-size: 15px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: white;
+    }
+    .form-group input {
+      width: 80%;
+      padding: 8px;
+      font-size: 12px;
+      border: 1px solid black;
+      border-radius: 20px;
+    }
+    .birthday-fields {
+      display: flex;
+      gap: 5px;
+    }
+    .birthday-fields input {
+      width: calc(33.33% - 4px);
+    }
+    .buttons {
+      width: 50%;
+      align-items: right;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-left: 300px;
+    }
+    button {
+      flex: 1;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: bold;
+      border: 1px solid black;
+      background-color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:last-child {
+      margin-right: 0;
+    }
+    button:hover {
+      background-color: #f0f0f0;
+    }
+    p.login-link {
+      text-align: right;
+      margin-right: 100px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: white;
+    }
+    .login-link a {
+      color: white;
+      text-decoration: underline;
+    }
+    .close-button a{
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+    }
+    .close-btn:hover {
+      font-weight: bold;
+    }
 
-.wrapper {
-    height: 950px;
-    width: 1000px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
-    color: #fff;
-    border-radius: 80px;
-    padding: 30px 40px;
-    display: flex;
-}
+    .form-row.single-field .form-group input {
+    width: 39%; 
+    }
 
-.wrapper h1,h2 {
-    margin: 0;
-    line-height: .7;
-}
-
-.wrapper h1 {
-    font-size: 80px;
-    text-align: left;
-    color: whitesmoke;
-    margin-bottom: 5px;
-    margin-top: 60px;
-    margin-left: 20px;
-    margin-bottom: 50px;
-}
-
-.wrapper h2 {
-    font-size: 38.5px;
-    text-align: left;
-    color: whitesmoke;
-    margin-top: 0;
-    margin-left: 40px;
-}
-
-.wrapper label {
-    color: whitesmoke;
-    font-size: 28.2px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    margin-left: 20px;
-}
-
-
-.wrapper form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
-}
-
-.wrapper .input-box {
-    width: 45%; 
-    margin: 10px 0;
-    margin-left: 20px;
-    margin-top: 30px;
-}
-
-.input-box input {
-    width: 100%; 
-    height: 60px;
-    background-color: whitesmoke;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    font-size: 16px;
-    color: black;
-    padding: 20px 45px 20px 20px;
-}
-
-.input-box input::placeholder {
-    color: #d9d9d9;
-}
-
-.wrapper .btn {
-    width: 30%;
-    height: 60px;
-    background: white;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: black;
-    font-weight: 600;
-    margin-left: 600px;
-}
-
-.wrapper .register-link {
-    font-size: 20px;
-    text-align: right;
-    padding: 10px 20px;
-    color: whitesmoke;
-    line-height: 0%;
-}
-
-.register-link p a {
-    color: whitesmoke;
-    text-decoration: none;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-
-.profile-image {
-    width: 400px;
-    height: 200px;
-    border: none;
-    margin: 0;
-    display: inline-flex;
-}
-
-    </style>
+  </style>
 </head>
-
 <body>
-
-    <div class="wrapper" id ="signUp">
-        <form method = "post" action="Register.php">
-            <h1>Register an account</h1>
-            <div class="input-box">
-                <label for="username">First Name</label>
-                <input type="text" name="FirstName" id="FirstName" required>
-            </div>
-            <div class="input-box">
-                <label for="username">Last Name</label>
-                <input type="text" name="LastName" id="LastName" required>
-            </div>
-            <div class="input-box">
-                <label for="username">IGN (Username)</label>
-                <input type="text" name="username" id="username" required>
-            </div>
-            <div class="input-box">
-                <label for="username">Birthday</label>
-                <input type="text" name="birthday" id="birthday" required>
-            </div>
-            <div class="input-box">
-                <label for="username">Email Address</label>
-                <input type="text" name="Email" id="Email" required>
-            </div>
-            <div class="input-box">
-                <label for="username">Phone number</label>
-                <input type="text" name="Phone_Number" id="Phone_Number" required>
-            </div>
-            <div class="register-link">
-                <p>Already have an account? <a href="Index.php">Login</a></p>
-            </div>
-            <div>
-            <img src="Logo.png" alt="Sample Image" class="profile-image">
-            <input type="submit" class="btn" value="Register" name="signUp"></p>
-            </div>
-        </form>
-    </div>
+  <div class="form-container">
+    <div class="close-button"><a href="User_menu.php">✖</a></div>
+    <h1>REGISTER AN ACCOUNT</h1>
+    <form method = "post" action = "Register.php">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">FIRST NAME</label>
+          <input type="text" id="first-name" name="first-name" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">LAST NAME</label>
+          <input type="text" id="last-name" name="last-name" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="birthday">BIRTHDAY</label>
+          <div class="birthday-fields">
+            <input type="text" id="month" name="month" placeholder="Month" required>
+            <input type="text" id="day" name="day" placeholder="Day" required>
+            <input type="text" id="year" name="year" placeholder="Year" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ign">IGN (USERNAME)</label>
+          <input type="text" id="ign" name="ign" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">PHONE NUMBER</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+      </div>
+      <div class="form-row single-field">
+        <div class="form-group">
+          <label for="email">EMAIL ADDRESS</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+      </div>      
+      <p class="login-link">Register an account for an <a href="otin">Admin</a></p>
+      <div class="buttons">
+        <button type="button">CANCEL</button>
+        <button type="submit" name = "signUp" id = "signUp">REGISTER</button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
+

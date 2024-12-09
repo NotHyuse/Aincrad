@@ -194,9 +194,9 @@ include("connect.php");
         <label for="name">Name: <?php 
        if(isset($_SESSION['Customer_Username'])){
         $username=$_SESSION['Customer_Username'];
-        $query=mysqli_query($conn, "SELECT Customer_Fullname FROM `customer` WHERE customer.Customer_Username='$username'");
+        $query=mysqli_query($conn, "SELECT Customer_FirstName, Customer_LastName FROM `customer` WHERE customer.Customer_Username='$username'");
         while($row=mysqli_fetch_array($query)){
-            echo $row['Customer_Fullname'];}}
+            echo $row['Customer_FirstName'] . ' ' . $row['Customer_LastName'];}}
             ?>
         </label>
         <label for="balance">Balance</label>
