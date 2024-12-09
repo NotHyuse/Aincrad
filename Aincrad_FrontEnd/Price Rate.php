@@ -125,8 +125,8 @@ session_start();
     }
 
     .confirm-button button {
-        background-color: black;
-        color: white;
+        background-color: white;
+        color: black;
         border: none;
         padding: 10px 20px;
         text-align: center;
@@ -145,7 +145,7 @@ session_start();
 
     .confirm-button button:hover {
       background-color: white;
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     .close-button a {
@@ -226,7 +226,7 @@ session_start();
         </div>
       </div>
       <div class="confirm-button">
-        <button><a href="User_menu.php" style="text-decoration: none; color: white;">CONFIRM</a></button>
+        <button><a href="User_menu.php" style="text-decoration: none; color: black;">CONFIRM</a></button>
       </div>
       <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>

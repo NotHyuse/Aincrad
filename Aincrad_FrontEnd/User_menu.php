@@ -14,6 +14,7 @@ include("connect.php");
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
   <title>UI Design</title>
+  
   <style>
     * {
       margin: 0;
@@ -215,7 +216,7 @@ include("connect.php");
         <img src="Logo.png" alt="Logo">
       </div>
       <div class="Logout">
-        <button><i class="bi bi-box-arrow-left"></i><a href = "login.php">LOG OUT</button>
+        <button><i class="bi bi-box-arrow-left"></i><a href = "index.php">LOG OUT</button>
       </div>
     </div>
   </div>

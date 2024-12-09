@@ -1,26 +1,20 @@
-<?php
+<?php 
 include("connect.php");
 ?>
 
+<?php
 
-<?php  
-if(isset($_POST["Login"])){
+if(isset($_POST['signUp'])){
+    $fullname=$_POST['fullName'];
     $username=$_POST['username'];
     $password=$_POST['password'];
     $password=md5($password);
-
-    $sql = "SELECT * FROM customer where Customer_Username = '$username' and Customer_Password = '$password'";
-    $result = $conn->query($sql);
-    if($result->num_rows > 0){
-        session_start();
-        $row=$result->fetch_assoc();
-        $_SESSION['Customer_Username'] = $row['Customer_Username'];
-        $_SESSION['Login_Time'] = time();
-        header('Location: user_menu.php');
-        exit();
-    }
-    else{
-        echo "<script>
+    
+     $CheckUser="SELECT * FROM customer where Customer_Username='$username'";
+     $result=$conn->query($CheckUser);
+     if($result->num_rows > 0){
+        echo "
+        <script>
             document.body.innerHTML += `
             <div id='errorModal' style='
                 position: fixed;
@@ -33,7 +27,7 @@ if(isset($_POST["Login"])){
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 text-align: center;
                 z-index: 1000;'>
-                <p>Invalid Login Attempt: Incorrect Username or Password</p>
+                <p>Username already exists</p>
                 <button onclick='closeModal()' style='
                     background-color: #007BFF;
                     color: white;
@@ -53,27 +47,39 @@ if(isset($_POST["Login"])){
             `;
             function closeModal() {
                 document.getElementById('errorModal').remove();
-                window.location.href = 'login.php';
+                window.location.href = 'index.php'; // Redirect to the signup page
             }
-        </script>
-        ";
-    }
+        </script>";
+     }
+     else{
+        $insertQuery = "INSERT INTO customer(Customer_Fullname, Customer_Username, Customer_Password)
+                        VALUES('$fullname', '$username', '$password')";
+            if($conn->query($insertQuery)==TRUE){
+                header("location: login.php");
+            }
+            else{
+                echo "Error".$conn->error;
+            }
+        }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset ="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Almoranas Gaming</title>
+    <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    
-<style>
-    
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -86,13 +92,13 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(retro.jpg);
+    background: url(wp.gif);
     background-size: cover;
     background-position: center;
 }
 
 .wrapper {
-    height: 1000px;
+    height: 950px;
     width: 1000px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
@@ -101,6 +107,7 @@ body {
     color: #fff;
     border-radius: 80px;
     padding: 30px 40px;
+    display: flex;
 }
 
 .wrapper h1,h2 {
@@ -109,12 +116,13 @@ body {
 }
 
 .wrapper h1 {
-    font-size: 122px;
+    font-size: 80px;
     text-align: left;
     color: whitesmoke;
     margin-bottom: 5px;
     margin-top: 60px;
     margin-left: 20px;
+    margin-bottom: 50px;
 }
 
 .wrapper h2 {
@@ -130,10 +138,15 @@ body {
     font-size: 28.2px;
     font-weight: bold;
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     margin-left: 20px;
-    margin-top: 50px;
-    margin-bottom: 10px;
+}
+
+
+.wrapper form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
 }
 
 .wrapper .input-box {
@@ -163,27 +176,25 @@ body {
 
 .wrapper .btn {
     width: 30%;
-    height: 70px;
-    background: blueviolet;
-    margin-top: 70px;
-    margin-bottom: 5px;
+    height: 60px;
+    background: white;
     border: none;
     outline: none;
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
-    color: #fff;
+    color: black;
     font-weight: 600;
-    margin-left: 90px;
+    margin-left: 600px;
 }
 
 .wrapper .register-link {
     font-size: 20px;
     text-align: right;
-    margin: 20px 0 15px;
+    padding: 10px 20px;
     color: whitesmoke;
-    margin-right: 550px;
+    line-height: 0%;
 }
 
 .register-link p a {
@@ -191,48 +202,56 @@ body {
     text-decoration: none;
     font-weight: 600;
     text-decoration: underline;
-    margin-left: 5px;
 }
 
-.Robot {
-    width: 500px;
-    height: 400px;
-    margin-left: 400px;
-    align-items: right;
-    gap: 100px; 
-}
+
 .profile-image {
-    width: 500px;
-    height: 300px;
-    display: block;
-    margin-left: 400px;
-    margin-right: auto;
+    width: 400px;
+    height: 200px;
+    border: none;
+    margin: 0;
+    display: inline-flex;
 }
 
-</style>
+    </style>
 </head>
 
 <body>
 
-    <div class="wrapper" id="signIn">
-        <form method = "post" action="index.php">
-            <h1>Welcome</h1>
-            <h2>BACK!</h2>
+    <div class="wrapper" id ="signUp">
+        <form method = "post" action="Register.php">
+            <h1>Register an account</h1>
             <div class="input-box">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" placeholder="Enter username" required>
+                <label for="username">First Name</label>
+                <input type="text" name="FirstName" id="FirstName" required>
             </div>
             <div class="input-box">
-                <label for="username">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter password" required>
-            </div> 
-        </img src="Welcome!.png" alt="Image" class="Robot">
-            <button type="submit" class="btn" value="Login" name="Login">Login</button>
-
+                <label for="username">Last Name</label>
+                <input type="text" name="LastName" id="LastName" required>
+            </div>
+            <div class="input-box">
+                <label for="username">IGN (Username)</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-box">
+                <label for="username">Birthday</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-box">
+                <label for="username">Email Address</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-box">
+                <label for="username">Phone number</label>
+                <input type="text" name="username" id="username" required>
+            </div>
             <div class="register-link">
-                <p>Don't have an account?<a href="Register.php">Sign up</a></p>
+                <p>Already have an account? <a href="Index.php">Login</a></p>
             </div>
+            <div>
             <img src="Logo.png" alt="Sample Image" class="profile-image">
+            <input type="submit" class="btn" value="Register" name="signUp"></p>
+            </div>
         </form>
     </div>
 </body>
