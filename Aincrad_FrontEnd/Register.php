@@ -5,8 +5,12 @@ include("connect.php");
 <?php
 
 if(isset($_POST['signUp'])){
-    $fullname=$_POST['fullName'];
+    $firstName=$_POST['FirstName'];
+    $lastName=$_POST['LastName'];
     $username=$_POST['username'];
+    $birthday=$_POST['birthday'];
+    $email=$_POST['Email'];
+    $PhoneNumber=$_POST['Phone_Number'];
     $password=$_POST['password'];
     $password=md5($password);
     
@@ -52,8 +56,8 @@ if(isset($_POST['signUp'])){
         </script>";
      }
      else{
-        $insertQuery = "INSERT INTO customer(Customer_Fullname, Customer_Username, Customer_Password)
-                        VALUES('$fullname', '$username', '$password')";
+        $insertQuery = "INSERT INTO customer(Customer_FirstName, Customer_LastName, Customer_Username, Customer_Birthday, Customer_Email, Customer_PhoneNumber, Customer_Password)
+                        VALUES('$firstName', '$lastName', '$username', '$birthday', '$email', '$PhoneNumber', '$password')";
             if($conn->query($insertQuery)==TRUE){
                 header("location: login.php");
             }
@@ -235,15 +239,15 @@ body {
             </div>
             <div class="input-box">
                 <label for="username">Birthday</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="birthday" id="birthday" required>
             </div>
             <div class="input-box">
                 <label for="username">Email Address</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="Email" id="Email" required>
             </div>
             <div class="input-box">
                 <label for="username">Phone number</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="Phone_Number" id="Phone_Number" required>
             </div>
             <div class="register-link">
                 <p>Already have an account? <a href="Index.php">Login</a></p>
