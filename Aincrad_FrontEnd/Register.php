@@ -52,7 +52,7 @@ if(isset($_POST['signUp'])){
             `;
             function closeModal() {
                 document.getElementById('errorModal').remove();
-                window.location.href = 'index.php'; // Redirect to the signup page
+                window.location.href = 'Register.php'; // Redirect to the signup page
             }
         </script>";
      }
@@ -72,6 +72,7 @@ if(isset($_POST['signUp'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">  </head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
@@ -142,7 +143,7 @@ if(isset($_POST['signUp'])){
       gap: 5px;
     }
     .birthday-fields input {
-      width: calc(33.33% - 4px);
+      width: calc(80%);
     }
     .buttons {
       width: 50%;
@@ -207,11 +208,11 @@ if(isset($_POST['signUp'])){
       <div class="form-row">
         <div class="form-group">
           <label for="first-name">FIRST NAME</label>
-          <input type="text" id="first-name" name="first-name" required>
+          <input type="text" id="first-name" name="FirstName" required>
         </div>
         <div class="form-group">
           <label for="last-name">LAST NAME</label>
-          <input type="text" id="last-name" name="last-name" required>
+          <input type="text" id="last-name" name="LastName" required>
         </div>
       </div>
       <div class="form-row">
@@ -220,28 +221,26 @@ if(isset($_POST['signUp'])){
           <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-          <label for="birthday">BIRTHDAY</label>
-          <div class="birthday-fields">
-            <input type="text" id="month" name="month" placeholder="Month" required>
-            <input type="text" id="day" name="day" placeholder="Day" required>
-            <input type="text" id="year" name="year" placeholder="Year" required>
-          </div>
+            <label for="birthday">BIRTHDAY</label>
+            <div class="birthday-fields">
+                <input type="date" id="birthday" name="birthday" required>
+                </div>
+              </div>
         </div>
-      </div>
       <div class="form-row">
         <div class="form-group">
           <label for="ign">IGN (USERNAME)</label>
-          <input type="text" id="ign" name="ign" required>
+          <input type="text" id="ign" name="username" required>
         </div>
         <div class="form-group">
           <label for="phone">PHONE NUMBER</label>
-          <input type="tel" id="phone" name="phone" required>
+          <input type="tel" id="phone" name="Phone_Number" required>
         </div>
       </div>
       <div class="form-row single-field">
         <div class="form-group">
           <label for="email">EMAIL ADDRESS</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="Email" required>
         </div>
       </div>      
       <p class="login-link">Register an account for an <a href="otin">Admin</a></p>
@@ -251,6 +250,13 @@ if(isset($_POST['signUp'])){
       </div>
     </form>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+    <script>
+        $('#birthday').datepicker({
+            format: 'yyyy-mm-dd', // Format for MySQL DATE field
+            autoclose: true
+        });
+    </script>
 </body>
 </html>
 
