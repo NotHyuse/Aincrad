@@ -199,7 +199,13 @@ include("connect.php");
             echo $row['Customer_FirstName'] . ' ' . $row['Customer_LastName'];}}
             ?>
         </label>
-        <label for="balance">Balance: <span id="balance">₱</span></label>
+        <label for="balance">Balance: <?php 
+              if(isset($_SESSION['Customer_Username'])){
+                $username=$_SESSION['Customer_Username'];
+                $query=mysqli_query($conn, "SELECT Customer_Balance FROM `customer` WHERE customer.Customer_Username='$username'");
+                while($row=mysqli_fetch_array($query)){
+                    echo $row['Customer_Balance'];}}
+          ?></label>
         <label for="account-id">Account ID: <?php 
         if(isset($_SESSION['Customer_Username'])){
         $username=$_SESSION['Customer_Username'];
@@ -244,85 +250,47 @@ include("connect.php");
     </div>
   </div>
   <script>
-const loginTime = <?php echo isset($_SESSION['Login_Time']) ? $_SESSION['Login_Time'] : 'null'; ?>;
-let balance = <?php 
-    if (isset($_SESSION['Customer_Username'])) {
-        $username = $_SESSION['Customer_Username'];
-        $query = mysqli_query($conn, "SELECT Customer_Balance FROM `customer` WHERE Customer_Username = '$username'");
-        if ($query && mysqli_num_rows($query) > 0) {
-            $row = mysqli_fetch_array($query);
-            echo $row['Customer_Balance'];
-        } else {
-            echo '0';
-        }
-    } else {
-        echo '0';
-    }
-?>;
+      // Get the server-side login time
+      const loginTime = <?php echo isset($_SESSION['Login_Time']) ? $_SESSION['Login_Time'] : 'null'; ?>;
 
-let previousPayment = 0; // Track the previous payment to prevent duplicate updates
+      function calculatePayment(elapsedTime) {
+          let payment = 0;
 
-function calculatePayment(elapsedTime) {
-    let payment = 0;
+          if (elapsedTime <= 20 * 60) {
+              payment = 20;
+          } else {
+              const extraTime = elapsedTime - 20 * 60; // Time beyond the first 20 minutes
+              const additionalMinutes = Math.floor(extraTime / 60); // Convert seconds to minutes
+              payment = 20 + (additionalMinutes * 0.67); // ₱0.67 per minute after the first 20 minutes
+          }
 
-    if (elapsedTime <= 20 * 60) {
-        payment = 20;
-    } else {
-        const extraTime = elapsedTime - 20 * 60;
-        const additionalMinutes = Math.floor(extraTime / 60);
-        payment = 20 + (additionalMinutes * 0.67);
-    }
+          return payment.toFixed(2); // Format payment to two decimal places
+      }
 
-    return payment.toFixed(2);
-}
+      if (loginTime !== null) {
+          // Update the elapsed time and payment every second
+          setInterval(() => {
+              const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+              const elapsedTime = currentTime - loginTime; // Elapsed time in seconds
 
+              const hours = Math.floor(elapsedTime / 3600);
+              const minutes = Math.floor((elapsedTime % 3600) / 60);
+              const seconds = elapsedTime % 60;
 
-if (loginTime !== null) {
-    setInterval(() => {
-        const currentTime = Math.floor(Date.now() / 1000);
-        const elapsedTime = currentTime - loginTime;
+              // Format the time as HH:MM:SS
+              const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        const hours = Math.floor(elapsedTime / 3600);
-        const minutes = Math.floor((elapsedTime % 3600) / 60);
-        const seconds = elapsedTime % 60;
+              // Update the label for duration time
+              document.getElementById('duration-time').textContent = displayTime;
 
-        const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById('duration-time').textContent = displayTime;
-
-        const payment = calculatePayment(elapsedTime);
-        document.getElementById('payment').textContent = `₱${payment}`;
-
-        if (payment !== previousPayment) {
-            previousPayment = payment; // Update the previous payment value
-
-
-            fetch('update_balance.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `spending=${payment}`,
-          })
-          .then(response => response.text())
-          .then(data => {
-              const parsedBalance = parseFloat(data);
-              if (!isNaN(parsedBalance)) {
-                  balance = parsedBalance;
-                  document.getElementById('balance').textContent = `₱${balance.toFixed(2)}`;
-              } else {
-                  console.error("Invalid balance received from server:", data);
-              }
-          })
-          .catch(error => {
-              console.error('Fetch Error:', error);
-          });
-        }
-    }, 1000);
-} else {
-    document.getElementById('duration-time').textContent = 'N/A';
-    document.getElementById('payment').textContent = '₱0';
-    document.getElementById('balance').textContent = `₱${balance.toFixed(2)}`;
-}
-</script>
+              // Calculate payment and update the payment label
+              const payment = calculatePayment(elapsedTime);
+              document.getElementById('payment').textContent = `₱${payment}`;
+          }, 1000);
+      } else {
+          document.getElementById('duration-time').textContent = 'N/A';
+          document.getElementById('payment').textContent = '₱0';
+      }
+  </script>
 </body>
 </html>
