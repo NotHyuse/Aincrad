@@ -200,6 +200,7 @@ include("connect.php");
             ?>
         </label>
         <label for="balance">Balance: <span id="balance">₱</span></label>
+
         <label for="account-id">Account ID: <?php 
         if(isset($_SESSION['Customer_Username'])){
         $username=$_SESSION['Customer_Username'];
@@ -246,21 +247,15 @@ include("connect.php");
   <script>
 const loginTime = <?php echo isset($_SESSION['Login_Time']) ? $_SESSION['Login_Time'] : 'null'; ?>;
 let balance = <?php 
-    if (isset($_SESSION['Customer_Username'])) {
-        $username = $_SESSION['Customer_Username'];
-        $query = mysqli_query($conn, "SELECT Customer_Balance FROM `customer` WHERE Customer_Username = '$username'");
-        if ($query && mysqli_num_rows($query) > 0) {
-            $row = mysqli_fetch_array($query);
-            echo $row['Customer_Balance'];
-        } else {
-            echo '0';
-        }
+    if(isset($_SESSION['Customer_Username'])){
+        $username=$_SESSION['Customer_Username'];
+        $query=mysqli_query($conn, "SELECT Customer_Balance FROM `customer` WHERE customer.Customer_Username='$username'");
+        $row=mysqli_fetch_array($query);
+        echo $row['Customer_Balance'];
     } else {
         echo '0';
     }
 ?>;
-
-let previousPayment = 0; // Track the previous payment to prevent duplicate updates
 
 function calculatePayment(elapsedTime) {
     let payment = 0;
@@ -268,55 +263,60 @@ function calculatePayment(elapsedTime) {
     if (elapsedTime <= 20 * 60) {
         payment = 20;
     } else {
-        const extraTime = elapsedTime - 20 * 60;
-        const additionalMinutes = Math.floor(extraTime / 60);
-        payment = 20 + (additionalMinutes * 0.67);
+        const extraTime = elapsedTime - 20 * 60; // Time beyond the first 20 minutes
+        const additionalMinutes = Math.floor(extraTime / 60); // Convert seconds to minutes
+        payment = 20 + (additionalMinutes * 0.67); // ₱0.67 per minute after the first 20 minutes
     }
 
-    return payment.toFixed(2);
+    return payment.toFixed(2); // Format payment to two decimal places
 }
 
+// AJAX function to send updated balance to the server
+function updateBalanceOnServer(updatedBalance) {
+    fetch('update_balance.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ balance: updatedBalance }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Server Response:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 if (loginTime !== null) {
+    // Update the elapsed time, payment, and balance every second
     setInterval(() => {
-        const currentTime = Math.floor(Date.now() / 1000);
-        const elapsedTime = currentTime - loginTime;
+        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+        const elapsedTime = currentTime - loginTime; // Elapsed time in seconds
 
         const hours = Math.floor(elapsedTime / 3600);
         const minutes = Math.floor((elapsedTime % 3600) / 60);
         const seconds = elapsedTime % 60;
 
+        // Format the time as HH:MM:SS
         const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Update the label for duration time
         document.getElementById('duration-time').textContent = displayTime;
 
+        // Calculate payment
         const payment = calculatePayment(elapsedTime);
+
+        // Update payment label
         document.getElementById('payment').textContent = `₱${payment}`;
 
-        if (payment !== previousPayment) {
-            previousPayment = payment; // Update the previous payment value
+        // Deduct payment from balance and update the balance label
+        const updatedBalance = balance - parseFloat(payment);
+        document.getElementById('balance').textContent = `₱${updatedBalance.toFixed(2)}`;
 
-
-            fetch('update_balance.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `spending=${payment}`,
-          })
-          .then(response => response.text())
-          .then(data => {
-              const parsedBalance = parseFloat(data);
-              if (!isNaN(parsedBalance)) {
-                  balance = parsedBalance;
-                  document.getElementById('balance').textContent = `₱${balance.toFixed(2)}`;
-              } else {
-                  console.error("Invalid balance received from server:", data);
-              }
-          })
-          .catch(error => {
-              console.error('Fetch Error:', error);
-          });
-        }
+        // Send the updated balance to the server
+        updateBalanceOnServer(updatedBalance.toFixed(2));
     }, 1000);
 } else {
     document.getElementById('duration-time').textContent = 'N/A';
@@ -324,5 +324,6 @@ if (loginTime !== null) {
     document.getElementById('balance').textContent = `₱${balance.toFixed(2)}`;
 }
 </script>
+
 </body>
 </html>
