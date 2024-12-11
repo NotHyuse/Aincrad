@@ -161,60 +161,83 @@ body {
 </body>
 </html>
 
-<?php  
-if(isset($_POST["Login"])){
-    $username=$_POST['username'];
-    $password=md5($_POST['password']);
+<?php
+if (isset($_POST["Login"])) {
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
 
-    $sql = "SELECT * FROM customer where Customer_Username = '$username' and Customer_Password = '$password'";
+    $user_role = null;
+
+    // Unified query to get account type
+    $sql = "SELECT Account_Type_ID_FK FROM (
+                SELECT Customer_Username AS Username, Customer_Password AS Password, Account_Type_ID_FK FROM customer
+                UNION ALL
+                SELECT Employee_Username AS Username, Employee_Password AS Password, Account_Type_ID_FK FROM employee
+            ) AS combined
+            WHERE Username = '$username' AND Password = '$password'";
+
     $result = $conn->query($sql);
-    if($result->num_rows > 0){
-        session_start();
-        $row=$result->fetch_assoc();
-        $_SESSION['Customer_Username'] = $row['Customer_Username'];
-        $_SESSION['Login_Time'] = time();
-        header('Location: User_Menu.php');
-        exit();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $user_role = $row['Account_Type_ID_FK'];
     }
-    else{
-        echo "<script>
-            document.body.innerHTML += `
-            <div id='errorModal' style='
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                padding: 20px;
-                background-color: white;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                text-align: center;
-                z-index: 1000;'>
-                <p>Invalid Login Attempt: Incorrect Username or Password</p>
-                <button onclick='closeModal()' style='
-                    background-color: #007BFF;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    cursor: pointer;
-                    border-radius: 5px;'>OK</button>
-            </div>
-            <div style='
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 999;' onclick='closeModal()'></div>
-            `;
-            function closeModal() {
-                document.getElementById('errorModal').remove();
-                window.location.href = 'Index.php';
-            }
-        </script>
-        ";
+
+    // Handle redirection based on role
+    switch ($user_role) {
+        case '2': // Assuming '1' corresponds to customer
+            session_start();
+            $_SESSION['Customer_Username'] = $username;
+            $_SESSION['Login_Time'] = time();
+            header('Location: User_Menu.php'); // Redirect to customer dashboard
+            exit();
+
+        case '1': // Assuming '2' corresponds to employee
+            session_start();
+            $_SESSION['Employee_Username'] = $username;
+            $_SESSION['Login_Time'] = time();
+            header('Location: Employee_Dashboard.php'); // Redirect to employee dashboard
+            exit();
+
+        default:
+            // If no match found, display error modal
+            echo "<script>
+                document.body.innerHTML += `
+                <div id='errorModal' style='
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 20px;
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    text-align: center;
+                    z-index: 1000;'>
+                    <p>Invalid Login Attempt: Incorrect Username or Password</p>
+                    <button onclick='closeModal()' style='
+                        background-color: #007BFF;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-radius: 5px;'>OK</button>
+                </div>
+                <div style='
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 999;' onclick='closeModal()'></div>
+                `;
+                function closeModal() {
+                    document.getElementById('errorModal').remove();
+                    window.location.href = 'Index.php';
+                }
+            </script>
+            ";
+            break;
     }
 }
-
 ?>

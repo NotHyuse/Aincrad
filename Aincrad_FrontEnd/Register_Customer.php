@@ -14,6 +14,8 @@ if(isset($_POST['signUp'])){
     $PhoneNumber=$_POST['Phone_Number'];
     $password=$_POST['password'];
     $password=md5($password);
+    $account_type = 2;
+    $startingBalance = 120;
     
      $CheckUser="SELECT * FROM customer where Customer_Username='$username'";
      $result=$conn->query($CheckUser);
@@ -57,8 +59,10 @@ if(isset($_POST['signUp'])){
         </script>";
      }
      else{
-        $insertQuery = "INSERT INTO customer(Customer_FirstName, Customer_LastName, Customer_Username, Customer_Birthday, Customer_Email, Customer_PhoneNumber, Customer_Password)
-                        VALUES('$firstName', '$lastName', '$username', '$birthday', '$email', '$PhoneNumber', '$password')";
+        $insertQuery = "INSERT INTO customer(Customer_FirstName, Customer_LastName, Customer_Username, Customer_Birthday, Customer_Email, Customer_PhoneNumber, Customer_Password, Account_Type_ID_FK, Customer_Balance)
+                        VALUES('$firstName', '$lastName', '$username', 
+                        '$birthday', '$email', '$PhoneNumber', 
+                        '$password', '$account_type', '$startingBalance')";
             if($conn->query($insertQuery)==TRUE){
                 header("location: User_Menu.php");
             }
@@ -204,7 +208,7 @@ if(isset($_POST['signUp'])){
   <div class="form-container">
     <div class="close-button"><a href="User_menu.php">✖</a></div>
     <h1>REGISTER AN ACCOUNT</h1>
-    <form method = "post" action = "Register.php">
+    <form method = "post" action = "Register_Customer.php">
       <div class="form-row">
         <div class="form-group">
           <label for="first-name">FIRST NAME</label>
@@ -243,7 +247,7 @@ if(isset($_POST['signUp'])){
           <input type="email" id="email" name="Email" required>
         </div>
       </div>      
-      <p class="login-link">Register an account for an <a href="otin">Admin</a></p>
+      <p class="login-link">Register an account for an <a href="Register_admin.php">Admin</a></p>
       <div class="buttons">
         <button type="button">CANCEL</button>
         <button type="submit" name = "signUp" id = "signUp">REGISTER</button>
