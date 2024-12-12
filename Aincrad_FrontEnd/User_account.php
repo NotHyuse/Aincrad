@@ -262,6 +262,7 @@ let balance = <?php
 ?>;
 
 let previousPayment = 0; // Track the previous payment to prevent duplicate updates
+let initialDeductionSent = false; // Ensure the initial deduction is only sent once
 
 function calculatePayment(elapsedTime) {
     let payment = 0;
@@ -277,13 +278,43 @@ function calculatePayment(elapsedTime) {
     return payment.toFixed(2);
 }
 
-function updateBalanceOnServer(updatedSpending) {
-    fetch('update_balance.php', {
-        method: 'POST',
+function updateElapsedTime() {
+    const currentTime = Math.floor(Date.now() / 1000);
+    const elapsedTime = currentTime - loginTime;
+
+    const hours = Math.floor(elapsedTime / 3600);
+    const minutes = Math.floor((elapsedTime % 3600) / 60);
+    const seconds = elapsedTime % 60;
+
+    const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById('duration-time').textContent = displayTime;
+
+    const payment = calculatePayment(elapsedTime);
+    const updatedBalance = balance - parseFloat(payment);
+
+    // Reflect the updated balance on the frontend
+    document.getElementById('payment').textContent = `₱${payment}`;
+    document.getElementById('balance').textContent = `₱${updatedBalance.toFixed(2)}`;
+
+    // Only send the update after the balance has been displayed
+    if (!initialDeductionSent) {
+        updateBalanceOnServer(updatedBalance);
+        initialDeductionSent = true;
+    }
+
+    if (payment !== previousPayment) {
+        previousPayment = payment; // Update the previous payment value
+        updateBalanceOnServer(updatedBalance); // Send updated balance to server
+    }
+}
+
+function updateBalanceOnServer(updatedBalance) {
+    fetch("update_balance.php", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json; charset=utf-8",
         },
-        body: JSON.stringify({ spending: updatedSpending }),
+        body: JSON.stringify({ balance: updatedBalance }),
     })
         .then((response) => response.json())
         .then((data) => {
@@ -299,30 +330,9 @@ function updateBalanceOnServer(updatedSpending) {
 }
 
 if (loginTime !== null) {
+    // Update elapsed time every second
     setInterval(() => {
-        const currentTime = Math.floor(Date.now() / 1000);
-        const elapsedTime = currentTime - loginTime;
-
-        const hours = Math.floor(elapsedTime / 3600);
-        const minutes = Math.floor((elapsedTime % 3600) / 60);
-        const seconds = elapsedTime % 60;
-
-        const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById('duration-time').textContent = displayTime;
-
-        const payment = calculatePayment(elapsedTime);
-        document.getElementById('payment').textContent = `₱${payment}`;
-
-        if (payment !== previousPayment) {
-            previousPayment = payment; // Update the previous payment value
-            const updatedBalance = balance - parseFloat(payment);
-            document.getElementById('balance').textContent = `₱${updatedBalance.toFixed(2)}`;
-            
-            // Send the update to the server only every 10 seconds
-            if (elapsedTime % 10 === 0) {
-                updateBalanceOnServer(updatedBalance.toFixed(2));
-            }
-        }
+        updateElapsedTime();
     }, 1000);
 } else {
     document.getElementById('duration-time').textContent = 'N/A';
