@@ -238,7 +238,7 @@ include("connect.php");
         </div>
 
     <div class="content" id = "change_password">
-      <form method = "post" action = "Edit Password.php">
+      <form method = "post" action = "Edit_Password.php">
       <h1>Edit Password</h1>
       <div class="form-container">
         <div class="form-group">
@@ -322,7 +322,7 @@ if (isset($_POST["change_password"])) {
                     `;
                     function closeModal() {
                         document.getElementById('PassChangeSuccess').remove();
-                        window.location.href = 'Edit Password.php';
+                        window.location.href = 'Edit_Password.php';
                     }
                 </script>
                 ";
@@ -397,7 +397,7 @@ if (isset($_POST["change_password"])) {
                   `;
                   function closeModal() {
                       document.getElementById('errorNewPassNoMatch').remove();
-                      window.location.href = 'Edit Password.php';
+                      window.location.href = 'Edit_Password.php';
                   }
                 </script>
                 ";
@@ -436,7 +436,7 @@ if (isset($_POST["change_password"])) {
                   `;
                   function closeModal() {
                       document.getElementById('errorOldPassIncorrect').remove();
-                      window.location.href = 'Edit Password.php';
+                      window.location.href = 'Edit_Password.php';
                   }
                 </script>
                 ";;
