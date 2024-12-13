@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
   <title>Food Menu </title>
   <style>
@@ -102,7 +103,7 @@
 
     .item {
       background : white;
-      Postion : relative;
+      Position : relative;
       margin-top : 10px;
       margin-bottom: 300px;
       margin-left: -100px;
@@ -113,7 +114,7 @@
     }
 
     .image-placeholder {
-      postiion: relative;
+      postion: relative;
       width: 100px;
       height: 100px;
       background: #ddd;
@@ -128,9 +129,39 @@
       margin-top: 50px;
       width: 100px;
       height: 50px;
-      gap: 100px;
+      gap: 10px;
       border-radius: 8px;
       background: #ddd;
+      opacity: 100;
+    }
+    .Food-name-drop-down {
+    display: inline-block;
+    background-color: #ddd;
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    padding-right: 55px;
+    text-align: center;
+
+    }
+    .fddropdown-content {
+    display:none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 175px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 20px 16px;
+    z-index: 1;
+    height: 100px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-top:initial;
+
+    
+    } 
+    .Food-name-drop-down:hover .fddropdown-content {
+      display: block;
+    }
     }
     .add-btn {
       margin-top: 10px;
@@ -258,10 +289,18 @@
         <button class ="sizebtn">Small</button>
         <button class ="sizebtn">medium</button>
         <button class ="sizebtn">large</button>
-        
+     
       <div class="navigation">
         <button>&lt;</button>
         <button>&gt;</button>
+      </div>
+      <div class="Food-name-drop-down">
+        <p>Food Names</p>
+        <div class="fddropdown-content">
+        <p>Nova</p>
+        <p>Red Bull</p>
+        <p>Single Smash Burger</p>
+        </div>
       </div>
 
       <div class="footer">
