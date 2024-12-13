@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
-  <title>Food Menu</title>
+  <title>Food Menu </title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     
@@ -94,32 +93,45 @@
 
     .items {
       margin-left: 10px;
-      margin-top: 20px;
+      margin-top: 10px;
       display: flex;
       justify-content: center;
       gap: 10px;
+      buttom: 100px;
     }
 
     .item {
-      border: 1px solid #ccc;
-      width: 150px;
-      text-align: left;
-      padding: 20px 10px;
-      border-radius: 8px;
-      background: #f9f9f9;
-      line-height: 0.2;
+      background : white;
+      Postion : relative;
+      margin-top : 10px;
+      margin-bottom: 300px;
+      margin-left: -100px;
+      height: 11000x;
+      width: 180px;
+      border-radius: 10px;
+
     }
 
     .image-placeholder {
+      postiion: relative;
       width: 100px;
       height: 100px;
       background: #ddd;
       margin: 0 auto 10px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      align-items: center;      
+      margin-top: 20px;
 
+
+    }
+    .sizebtn {
+      margin-top: 50px;
+      width: 100px;
+      height: 50px;
+      gap: 100px;
+      border-radius: 8px;
+      background: #ddd;
+    }
     .add-btn {
       margin-top: 10px;
       display: block;
@@ -240,22 +252,13 @@
           <img src="fried chicken.jpg" alt="Item 1" class="image-placeholder">
           <td>Finger Foods</td>
           <p>₱ 0.00</p>
-          <a href="Food Menu Size and Type.html"><button class="add-btn">+</button></a>
-        </div>
-        <div class="item">
-            <img src="chips.jpg" alt="Item 1" class="image-placeholder">
-          <td>Snacks</td>
-          <p>₱ 0.00</p>
           <button class="add-btn">+</button>
         </div>
-        <div class="item">
-            <img src="drinks.jpg" alt="Item 1" class="image-placeholder">
-          <td>Bevarages</td>
-          <p>₱ 0.00</p>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-
+      <div class="size">
+        <button class ="sizebtn">Small</button>
+        <button class ="sizebtn">medium</button>
+        <button class ="sizebtn">large</button>
+        
       <div class="navigation">
         <button>&lt;</button>
         <button>&gt;</button>
