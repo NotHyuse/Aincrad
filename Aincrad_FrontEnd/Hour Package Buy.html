@@ -6,7 +6,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
-  <title>Hour Package UI</title>
+  <title>Hour Package Buy</title>
   <style>
     * {
       margin: 0;
@@ -84,30 +84,80 @@
       font-family: 'League Spartan';
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      margin-left: 10px;
+    .content h2 {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 20px;
+      margin-left: 30px;
+      margin-top: 40px;
       color: white;
+      font-family: 'League Spartan';
     }
 
-    table th, table td {
-      padding: 10px;
-      text-align: center  ;
+    .products {
+      margin-right: 50px;
+      margin-bottom: 0px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
     }
 
-    table th {
-      background-color: transparent;
+    .product {
+      border: 1px solid #ccc;
+      width: 150px;
+      padding: 15px;
+      text-align: left;
+      border-radius: 8px;
+      background: #f9f9f9;
+      line-height: 20px;
+    }
+
+    .product .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+
+    .product .product-duration {
+      font-size: 12px;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+    
+    .product .product-price {
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 70px;
+    }
+
+    .payment-method {
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      margin-left: 28px;
+      width: 470px;
+      height: 120px;
+      padding: 15px 10px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      line-height: 20px;
+    }
+
+    .payment-method .payment-method-title {
+      font-size: 18px;
       font-weight: bold;
     }
 
-    input[type="text"] {
-      width: 80%;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      text-align: center;
+    .payment-method .type-of-payment {
+      font-size: 12px;
+      font-weight: normal;
+      margin-top: 25px;
+    }
+
+    .payment-method .change-button {
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 370px;
+      cursor: pointer;
     }
 
     .form-actions {
@@ -124,7 +174,7 @@
       cursor: pointer;
     }
 
-    .form-actions .buy-package {
+    .form-actions .cancel {
         background-color: white;
         color: black;
         border: none;
@@ -133,22 +183,21 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin: 20px 2px;
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.3s, transform 0.3s; 
         margin-left: 250px;
         width: 150px;
-        margin-top: 80px;
+        margin-bottom: 150px;
     }
 
-    .form-actions .buy-package:hover {
+    .form-actions .cancel:hover {
         background-color: white;
-        transform: scale(1.05);
-        cursor: pointer; 
+        transform: scale(1.05); 
     }
 
-    .form-actions .confirm-button {
+    .form-actions .buy-now {
         background-color: white;
         color: black;
         border: none;
@@ -157,16 +206,16 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin: 20px 2px;
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.3s, transform 0.3s; 
         width: 150px;
         margin-right: 20px;
-        margin-top: 80px;
+        margin-bottom: 150px;
     }
 
-    .form-actions .confirm-button:hover {
+    .form-actions .buy-now:hover {
         background-color: white;
         transform: scale(1.05); 
     }
@@ -223,47 +272,39 @@
           </div>
         </div>
     <div class="content">
-      <h1>Hour Package</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>PRODUCT</th>
-            <th>HOUR</th>
-            <th>PRICE</th>
-            <th>CREDITS</th>
-            <th>DESCRIPTION</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>₱40.00</td>
-            <td>40.00</td>
-            <td>Regular/Minimum	</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>3</td>
-            <td>₱120.00</td>
-            <td>120.00</td>
-            <td>Account Registration (First time customers only)
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>6</td>
-            <td>₱200.00</td>
-            <td>240.00</td>
-            <td>5 hrs + 1 hr free (Promo)
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="header">
+          <h1>Hour Package</h1>
+          <h2>Select Item</h2>
+      </div>
+    
+      <div class="products">
+        <div class="product">
+            <div class="product-name">Product 1</div>
+            <div class="product-duration">1 Hour</div>
+            <div class="product-price">₱40.00</div>
+        </div>
+        <div class="product">
+          <div class="product-name">Product 2</div>
+          <div class="product-duration">3 Hours</div>
+          <div class="product-price">₱120.00</div>
+        </div>
+        <div class="product">
+          <div class="product-name">Product 3</div>
+          <div class="product-duration">5 + 1 Hour</div>
+          <div class="product-price">₱200.00</div>
+        </div>
+
+      </div>
+      
+      <div class="payment-method">
+        <div class="payment-method-title">Payment Method</div>
+        <div class="type-of-payment">Type of Payment:</div>
+        <a href="Hour Package Payment Method.html"><div class="change-button">CHANGE</div></a>
+      </div>
 
       <div class="form-actions">
-        <a href="Hour Package Buy.html"><button class="buy-package">Buy Package</button></a>
-        <button class="confirm-button">CONFIRM</button>
+        <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
+        <button class="buy-now">BUY NOW</button>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>

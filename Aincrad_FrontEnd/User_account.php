@@ -245,83 +245,28 @@ include("connect.php");
     </div>
   </div>
   <script>
-const loginTime = <?php echo isset($_SESSION['Login_Time']) ? $_SESSION['Login_Time'] : 'null'; ?>;
-let balance = <?php 
-    if (isset($_SESSION['Customer_Username'])) {
-        $username = $_SESSION['Customer_Username'];
-        $query = mysqli_query($conn, "SELECT Customer_Balance FROM `customer` WHERE Customer_Username = '$username'");
-        if ($query && mysqli_num_rows($query) > 0) {
-            $row = mysqli_fetch_array($query);
-            echo $row['Customer_Balance'];
-        } else {
-            echo '0';
-        }
-    } else {
-        echo '0';
-    }
-?>;
-
 let previousPayment = 0; // Track the previous payment to prevent duplicate updates
-let initialDeductionSent = false; // Ensure the initial deduction is only sent once
-
-function calculatePayment(elapsedTime) {
-    let payment = 0;
-
-    if (elapsedTime <= 20 * 60) {
-        payment = 20;
-    } else {
-        const extraTime = elapsedTime - 20 * 60;
-        const additionalMinutes = Math.floor(extraTime / 60);
-        payment = 20 + (additionalMinutes * 0.67);
-    }
-
-    return payment.toFixed(2);
-}
 
 function updateElapsedTime() {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const elapsedTime = currentTime - loginTime;
-
-    const hours = Math.floor(elapsedTime / 3600);
-    const minutes = Math.floor((elapsedTime % 3600) / 60);
-    const seconds = elapsedTime % 60;
-
-    const displayTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    document.getElementById('duration-time').textContent = displayTime;
-
-    const payment = calculatePayment(elapsedTime);
-    const updatedBalance = balance - parseFloat(payment);
-
-    // Reflect the updated balance on the frontend
-    document.getElementById('payment').textContent = `₱${payment}`;
-    document.getElementById('balance').textContent = `₱${updatedBalance.toFixed(2)}`;
-
-    // Only send the update after the balance has been displayed
-    if (!initialDeductionSent) {
-        updateBalanceOnServer(updatedBalance);
-        initialDeductionSent = true;
-    }
-
-    if (payment !== previousPayment) {
-        previousPayment = payment; // Update the previous payment value
-        updateBalanceOnServer(updatedBalance); // Send updated balance to server
-    }
-}
-
-function updateBalanceOnServer(updatedBalance) {
-    fetch("update_balance.php", {
-        method: "POST",
+    fetch('calculate_balance.php', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            'Content-Type': 'application/json; charset=utf-8',
         },
-        body: JSON.stringify({ balance: updatedBalance }),
+        body: JSON.stringify({ action: 'update_time' }),
     })
         .then((response) => response.json())
         .then((data) => {
             if (data.error) {
                 console.error('Server error:', data.error);
-            } else if (data.success) {
-                console.log('Balance updated successfully:', data.balance);
+            } else {
+                document.getElementById('duration-time').textContent = data.duration_time;
+                document.getElementById('payment').textContent = `₱${data.payment}`;
+                document.getElementById('balance').textContent = `₱${data.balance}`;
+
+                if (data.payment !== previousPayment) {
+                    previousPayment = data.payment; // Update the previous payment value
+                }
             }
         })
         .catch((error) => {
@@ -329,16 +274,9 @@ function updateBalanceOnServer(updatedBalance) {
         });
 }
 
-if (loginTime !== null) {
-    // Update elapsed time every second
-    setInterval(() => {
-        updateElapsedTime();
-    }, 1000);
-} else {
-    document.getElementById('duration-time').textContent = 'N/A';
-    document.getElementById('payment').textContent = '₱0';
-    document.getElementById('balance').textContent = `₱${balance.toFixed(2)}`;
-}
-</script>
+setInterval(() => {
+    updateElapsedTime();
+}, 1000);
+  </script>
 </body>
 </html>
