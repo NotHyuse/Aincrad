@@ -1,3 +1,8 @@
+<?php 
+session_start();
+include("connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -253,23 +258,23 @@
       <div class="menu">
         <div class="menu-item">
           <img src="register.png" alt="Register">
-          <span>Register an Account</span>
+          <button><span><a href = "Register_Customer.php">Register an Account</a></span></button>
         </div>
         <div class="menu-item">
           <img src="credit-card.png" alt="Load">
-          <span>Load an Account</span>
+          <button><span><a href = "Load_account.php">Load An Account</a></span></button>
         </div>
         <div class="menu-item">
           <img src="grocery-store.png" alt="Orders">
-          <span>Orders</span>
+          <button><span><a href = "Admin_Order.php">Orders</a></span></button>
         </div>
         <div class="menu-item">
           <img src="user.png" alt="Accounts">
-          <span>Accounts</span>
+          <button><span><a href = "Admin_Accounts.php">Accounts</a></span></button>
         </div>
         <div class="menu-item">
           <img src="logout.png" alt="Logout">
-          <span>Logout</span>
+          <button><a href = "logout.php">Logout</a></button>
         </div>
       </div>
 

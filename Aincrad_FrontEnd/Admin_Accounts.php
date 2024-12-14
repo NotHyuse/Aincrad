@@ -1,3 +1,7 @@
+<?php 
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,7 +191,7 @@
     </div>
 
     <div class="details-section">
-      <div class="close">&times;</div>
+      <div class="close"><a href = "PC_Management.php">&times;</a></div>
         <div class="details" style="margin-top: 80px;">
           <img src="delete.png" alt="DEL">
           <a href="delete.html" class="click"><button>DELETE AN ACCOUNT</button></a>

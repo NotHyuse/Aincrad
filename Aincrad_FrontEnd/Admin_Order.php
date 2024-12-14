@@ -1,3 +1,7 @@
+<?php 
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,7 +165,7 @@
     </div>
 
     <div class="details-section">
-      <div class="close">&times;</div>
+      <div class="close"><a href = "PC_Management.php">&times;</a></div>
       <div class="header">ORDER DETAILS</div>
       <div class="details">
         <span>ID:</span>

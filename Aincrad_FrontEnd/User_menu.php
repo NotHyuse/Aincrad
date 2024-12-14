@@ -216,7 +216,7 @@ include("connect.php");
         <img src="Logo.png" alt="Logo">
       </div>
       <div class="Logout">
-        <button><i class="bi bi-box-arrow-left"></i><a href = "index.php">LOG OUT</button>
+        <button><i class="bi bi-box-arrow-left"></i><a href = "logout.php">LOG OUT</button>
       </div>
     </div>
   </div>
