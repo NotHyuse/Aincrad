@@ -159,6 +159,7 @@ include("connect.php");
       color: black;
       background-color: transparent;
       border: none;
+              transition: background-color 0.3s, transform 0.3s; 
     }
     .menu-item :hover {
       font-weight: bold;
