@@ -266,7 +266,7 @@ include("connect.php");
       </table>
 
       <div class="form-actions">
-        <a href="Hour Package Buy.html"><button class="buy-package">Buy Package</button></a>
+        <a href="Hour Package Buy.php"><button class="buy-package">Buy Package</button></a>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
