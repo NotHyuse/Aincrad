@@ -21,8 +21,58 @@ if (isset($_POST['DETAILS'])) {
         $_SESSION['loaded_user'] = $row;
 
     } else {
-        echo "<script>alert('User not found.');</script>";
-    }
+      // Use a custom modal instead of a simple alert
+      echo <<<HTML
+      <div id="myModal" class="modal">
+          <div class="modal-content">
+              <p>User not found.</p>
+              <button id="closeModal">OK</button>
+          </div>
+      </div>
+
+      <script>
+      var modal = document.getElementById("myModal");
+      var btn = document.getElementById("closeModal");
+
+      modal.style.display = "block"; // Show the modal
+
+      btn.onclick = function() {
+          modal.style.display = "none"; // Hide the modal
+      };
+
+      window.onclick = function(event) { // Close if clicked outside
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+      </script>
+      <style>
+          /* Basic modal styles */
+          .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+          }
+
+          .modal-content {
+              background-color: #fefefe;
+              margin: 15% auto; /* 15% from the top and centered */
+              padding: 20px;
+              border: 1px solid #888;
+              width: 300px; /* Adjust width as needed */
+              text-align: center; /* Center the content */
+          }
+      </style>
+
+HTML;
+
+  }
 }
 
 
@@ -60,45 +110,58 @@ if (isset($_POST['ADD'])) {
       }
 
   } else {
-      echo "<script>
-                document.body.innerHTML += `
-                <div id='errorModal' style='
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    padding: 20px;
-                    background-color: white;
-                    border: 1px solid #ccc;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                    text-align: center;
-                    z-index: 1000;'>
-                    <p>Invalid Login Attempt: Incorrect Username or Password</p>
-                    <button onclick='closeModal()' style='
-                        background-color: #007BFF;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        cursor: pointer;
-                        border-radius: 5px;'>OK</button>
-                </div>
-                <div style='
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.5);
-                    z-index: 999;' onclick='closeModal()'></div>
-                `;
-                function closeModal() {
-                    document.getElementById('errorModal').remove();
-                    window.location.href = 'Index.php';
-                }
-            </script>
-            ";
-            break;
-  }
+    // Use a custom modal instead of a simple alert
+    echo <<<HTML
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>No User Loaded. Load User First.</p>
+            <button id="closeModal">OK</button>
+        </div>
+    </div>
+
+    <script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("closeModal");
+
+    modal.style.display = "block"; // Show the modal
+
+    btn.onclick = function() {
+        modal.style.display = "none"; // Hide the modal
+    };
+
+    window.onclick = function(event) { // Close if clicked outside
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+    <style>
+        /* Basic modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; /* Adjust width as needed */
+            text-align: center; /* Center the content */
+        }
+    </style>
+
+HTML;
+
+}
 }
 ?>
 
