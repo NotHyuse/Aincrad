@@ -274,7 +274,7 @@ include("connect.php");
         </div>
         <div class="menu-item">
           <img src="logout.png" alt="Logout">
-          <a href = "logout.php"></a><button>Logout</button></a>
+          <a href = "logout.php"><button>Logout</button></a>
         </div>
       </div>
 
