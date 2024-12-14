@@ -64,7 +64,7 @@ if(isset($_POST['signUp'])){
                         '$birthday', '$email', '$PhoneNumber', 
                         '$password', '$account_type', '$startingBalance')";
             if($conn->query($insertQuery)==TRUE){
-                header("location: User_Menu.php");
+                header("location: PC_Management.php");
             }
             else{
                 echo "Error".$conn->error;

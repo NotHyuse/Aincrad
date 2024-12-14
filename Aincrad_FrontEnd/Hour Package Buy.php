@@ -13,15 +13,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $selectedProduct = "Product 3";
         }
 
+        $Product_ID_FK = null;
+        switch ($selectedProduct) {
+            case 'Product 1':
+                $Product_ID_FK = '1';
+                break;
+            case 'Product 2':
+                $Product_ID_FK = '2';
+                break;
+            default:  // Equivalent to the "else" block
+                $Product_ID_FK = '3';
+                break;
+}
+
         // Assuming you have a user ID stored in the session
-        if (isset($_SESSION['user_id'])) {  // Replace 'user_id' with your actual session variable
-            $userId = $_SESSION['user_id'];
+        if (isset($_SESSION['Customer_Username'])) {  // Replace 'user_id' with your actual session variable
+            $userId = $_SESSION['Customer_Username'];
 
             // Sanitize the input to prevent SQL injection (assuming $connect is your database connection)
             $selectedProduct = mysqli_real_escape_string($connect, $selectedProduct);
 
             // Update the database.  Adjust table and column names as needed.
-            $sql = "UPDATE users SET selected_product = '$selectedProduct' WHERE user_id = '$userId'";
+            $sql = "INSERT INTO Transaction_Cart(Transaction_Cart_ID_PK, Product_ID_FK, Total_Amount_Paid) VALUES('', $Product_ID_FK, '', '')";
 
 
             if (mysqli_query($connect, $sql)) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 04:43 AM
+-- Generation Time: Dec 14, 2024 at 07:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,13 +120,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`Customer_ID_PK`, `Customer_FirstName`, `Customer_LastName`, `Customer_Username`, `Customer_Birthday`, `Customer_Email`, `Customer_PhoneNumber`, `Customer_Password`, `Account_Type_ID_FK`, `Customer_Balance`) VALUES
-(1, 'CJ', 'Legaspi', 'Hyuse', '2004-03-03', 'trchyuse@gmail.com', '1', '652d6be242c997add0bcbc1c7dfc72ee', 2, 1050.13),
-(3, 'Bins', 'Carabanes', 'bins', '0000-00-00', 'asdas@gmail.com', '123', '827ccb0eea8a706c4c34a16891f84e7b', 2, 120.00),
-(4, 'test', '1', 'tester1', '2019-12-11', 'tester1@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 2, 120.00),
-(5, 'Josh', 'de Ramas', 'Zentexesus', '2004-09-18', 'deramas.joshandrie18@gmail.com', '12345678901', 'e10adc3949ba59abbe56e057f20f883e', 2, 0.00),
-(6, 'tester', '2', 'tester2', '2024-11-28', 'tester2@gmail.com', '12345678901', 'e10adc3949ba59abbe56e057f20f883e', 2, 0.00),
-(7, 'Tester', '3', 'tester3', '2024-12-11', 'tester3@gmail.com', '12345678901', '268e27056a3e52cf3755d193cbeb0594', 2, 0.00),
-(8, 'tester', '4', 'tester4', '2024-11-06', 'tester4@gmail.com', '12345678901', '827ccb0eea8a706c4c34a16891f84e7b', 2, 165.00);
+(9, 'CJ', 'Legaspi', 'Hyuse', '2004-03-03', 'trchyuse@gmail.com', '09683013514', '25d55ad283aa400af464c76d713c07ad', 2, 100.00),
+(10, 'asdas', 'dasda', 'asda', '2024-11-27', 'asda@gmail.com', '12345678901', '60390c7e429e38e8449519011a24f79d', 2, 120.00);
 
 -- --------------------------------------------------------
 
@@ -215,6 +210,15 @@ CREATE TABLE `food_items` (
   `Food_Quantity_per_Piece` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `food_items`
+--
+
+INSERT INTO `food_items` (`Food_Item_ID_PK`, `Food_Name`, `Food_Type_ID_FK`, `Food_Price`, `Food_Original_Price`, `Food_Quantity_per_Piece`) VALUES
+(1, 'Single Smash Burger', 1, 150.00, 139.00, 1),
+(2, 'Nova', 2, 20.00, 18.00, 1),
+(3, 'Red Bull Energy Drink 90ML', 3, 100.00, 90.00, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -226,6 +230,15 @@ CREATE TABLE `food_type` (
   `Food_Type_Name` char(255) DEFAULT NULL,
   `Food_Type_Description` char(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `food_type`
+--
+
+INSERT INTO `food_type` (`Food_Type_ID_PK`, `Food_Type_Name`, `Food_Type_Description`) VALUES
+(1, 'Finger Food', 'Food that can be eaten with fingers only'),
+(2, 'Snacks', 'Packaged Snacks'),
+(3, 'Beverages', 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -318,6 +331,15 @@ CREATE TABLE `product_list` (
   `Description` char(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `product_list`
+--
+
+INSERT INTO `product_list` (`Product_ID_PK`, `Product_Price`, `Credits_Bought`, `Description`) VALUES
+(1, 40.00, 40.00, '1 Hour'),
+(2, 120.00, 120.00, '3 Hours'),
+(3, 200.00, 240.00, '5 hrs + 1 hr free (Promo)');
+
 -- --------------------------------------------------------
 
 --
@@ -342,7 +364,6 @@ CREATE TABLE `transaction` (
 CREATE TABLE `transaction_cart` (
   `Transaction_Cart_ID_PK` int(10) NOT NULL,
   `Product_ID_FK` int(2) DEFAULT NULL,
-  `Product_Quantity` int(2) DEFAULT NULL,
   `Total_Amount_Paid` float(10,2) DEFAULT NULL,
   `Total_Change` float(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -556,7 +577,7 @@ ALTER TABLE `business_report_per_month`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `Customer_ID_PK` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Customer_ID_PK` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `dhcp_settings`
@@ -580,13 +601,13 @@ ALTER TABLE `food_cart_jt`
 -- AUTO_INCREMENT for table `food_items`
 --
 ALTER TABLE `food_items`
-  MODIFY `Food_Item_ID_PK` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `Food_Item_ID_PK` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `food_type`
 --
 ALTER TABLE `food_type`
-  MODIFY `Food_Type_ID_PK` int(1) NOT NULL AUTO_INCREMENT;
+  MODIFY `Food_Type_ID_PK` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -616,7 +637,7 @@ ALTER TABLE `pc_configurations`
 -- AUTO_INCREMENT for table `product_list`
 --
 ALTER TABLE `product_list`
-  MODIFY `Product_ID_PK` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `Product_ID_PK` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `transaction`
@@ -714,7 +735,8 @@ ALTER TABLE `transaction`
 -- Constraints for table `transaction_cart`
 --
 ALTER TABLE `transaction_cart`
-  ADD CONSTRAINT `transaction_cart_ibfk_1` FOREIGN KEY (`Product_ID_FK`) REFERENCES `product_list` (`Product_ID_PK`);
+  ADD CONSTRAINT `transaction_cart_ibfk_1` FOREIGN KEY (`Product_ID_FK`) REFERENCES `product_list` (`Product_ID_PK`),
+  ADD CONSTRAINT `transaction_cart_ibfk_2` FOREIGN KEY (`Product_ID_FK`) REFERENCES `product_list` (`Product_ID_PK`);
 
 --
 -- Constraints for table `transaction_log`

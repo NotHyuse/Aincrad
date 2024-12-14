@@ -1,6 +1,26 @@
-<?php 
+<?php
 session_start();
 include("connect.php");
+
+// Check if the user is logged in
+if (!isset($_SESSION['Employee_Username'])) {
+    header("Location: index.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+// Get employee name from the database
+$employee_username = $_SESSION['Employee_Username'];
+$sql = "SELECT Employee_FirstName, Employee_LastName FROM employee WHERE Employee_Username = '$employee_username'";
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $employee_name = $row['Employee_FirstName'] . " " . $row['Employee_LastName'];
+} else {
+    $employee_name = "Unknown Employee"; // Default if name retrieval fails
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -259,10 +279,10 @@ include("connect.php");
       
     <div class="right-panel">
       <div class="header">
-        <span>Employee Name</span>
-        <span>Time</span>
-        <span>Date</span>
-      </div>
+          <span>Employee Name: <?php echo $employee_name; ?></span>
+          <span>Time: <span id="currentTime"></span></span>
+          <span>Date: <span id="currentDate"></span></span>
+        </div>
 
       <div class="menu">
         <div class="menu-item">
@@ -302,6 +322,18 @@ include("connect.php");
         container.style.display = 'none'; 
       }, 300);
     });
+
+    function updateDateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const dateString = now.toLocaleDateString();
+
+            document.getElementById('currentTime').textContent = timeString;
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        updateDateTime(); // Initial update
+        setInterval(updateDateTime, 1000); // Update every second
   </script>  
 </body>
 </html>
