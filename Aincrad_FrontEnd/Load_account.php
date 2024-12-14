@@ -3,38 +3,26 @@ session_start();
 include("connect.php");
 
 if (isset($_POST['DETAILS'])) {
-  $username = $_POST['username'];
-  $username = mysqli_real_escape_string($conn, $username); 
+    $username = $_POST['username'];
+    $username = mysqli_real_escape_string($conn, $username); // Sanitize input
 
-  $sql = "SELECT * FROM customer WHERE Customer_Username = '$username'";
-  $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM customer WHERE Customer_Username = '$username'";
+    $result = mysqli_query($conn, $sql);
 
-  if ($result && mysqli_num_rows($result) > 0) {
-      $row = mysqli_fetch_assoc($result);
-      $name = $row['Customer_FirstName'] . " " . $row['Customer_LastName'];
-      $userid = $row['Customer_ID_PK'];
-      $birthday = $row['Customer_Birthday'];
-      $email = $row['Customer_Email'];
-      $pnum = $row['Customer_PhoneNumber'];
-      $_SESSION['loaded_user'] = $row; // Store in session
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['Customer_FirstName'] ." ". $row['Customer_LastName'];
+        $userid = $row['Customer_ID_PK'];
+        $birthday = $row['Customer_Birthday'];
+        $email = $row['Customer_Email'];
+        $pnum = $row['Customer_PhoneNumber'];
 
-      // Set success message in session
-      $_SESSION['message'] = "User found!";
-      $_SESSION['message_type'] = "success";
+        // Store data in session variables for later use
+        $_SESSION['loaded_user'] = $row;
 
-
-  } else {
-      // Set error message in session for popup
-      $_SESSION['message'] = "User Not Found";
-      $_SESSION['message_type'] = "error";
-
-      // You don't need to set these to empty strings as the JavaScript 
-      // will handle clearing the fields if no user is found.
-      // $name = "";  $userid = ""; etc.
-  }
-
-    header("Location: Load_account.php");  // Redirect back to the main page
-    exit(); // Important: Stop execution here after redirect
+    } else {
+        echo "<script>alert('User not found.');</script>";
+    }
 }
 
 
@@ -72,7 +60,44 @@ if (isset($_POST['ADD'])) {
       }
 
   } else {
-      echo "No user loaded. Please load user details first.";
+      echo "<script>
+                document.body.innerHTML += `
+                <div id='errorModal' style='
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 20px;
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    text-align: center;
+                    z-index: 1000;'>
+                    <p>Invalid Login Attempt: Incorrect Username or Password</p>
+                    <button onclick='closeModal()' style='
+                        background-color: #007BFF;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-radius: 5px;'>OK</button>
+                </div>
+                <div style='
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 999;' onclick='closeModal()'></div>
+                `;
+                function closeModal() {
+                    document.getElementById('errorModal').remove();
+                    window.location.href = 'Index.php';
+                }
+            </script>
+            ";
+            break;
   }
 }
 ?>
