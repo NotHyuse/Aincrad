@@ -103,7 +103,6 @@
     }
 
     .product {
-      border: 1px solid #ccc;
       width: 150px;
       padding: 15px;
       text-align: left;
@@ -130,11 +129,31 @@
       margin-left: 70px;
     }
 
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0px;
+    }
+
+    .product-actions button {
+      padding: 10px 5px;
+      border: none;
+      border-radius: 5px;
+      background: #f9f9f9;
+      transition: background-color 0.3s, transform 0.3s; 
+      cursor: pointer;
+    }
+
+    .product-actions button:hover {
+      background-color: white;
+      transform: scale(1.05); 
+    }
+
     .payment-method {
       border: 1px solid #ccc;
       margin-top: 10px;
-      margin-left: 28px;
-      width: 470px;
+      margin-left: 0px;
+      width: 500px;
       height: 120px;
       padding: 15px 10px;
       border-radius: 8px;
@@ -252,11 +271,11 @@
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price_Rate.php" class="click">PRICE RATE</a>
+            <a href="Price Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
+            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -277,23 +296,27 @@
           <h2>Select Item</h2>
       </div>
     
-      <div class="products">
-        <div class="product">
-            <div class="product-name">Product 1</div>
-            <div class="product-duration">1 Hour</div>
-            <div class="product-price">₱40.00</div>
+      <div class="product-actions">
+        <div class="products">
+          <button><div class="product">
+              <div class="product-name">Product 1</div>
+              <div class="product-duration">1 Hour</div>
+              <div class="product-price">₱40.00</div>
+          </div>
+     
+           <button><div class="product">
+              <div class="product-name">Product 2</div>
+              <div class="product-duration">3 Hours</div>
+              <div class="product-price">₱120.00</div>
+            </div></button>
+        
+          <button><div class="product">
+             <div class="product-name">Product 3</div>
+              <div class="product-duration">5 + 1 Hour</div>
+              <div class="product-price">₱200.00</div>
+          </div></button>
         </div>
-        <div class="product">
-          <div class="product-name">Product 2</div>
-          <div class="product-duration">3 Hours</div>
-          <div class="product-price">₱120.00</div>
-        </div>
-        <div class="product">
-          <div class="product-name">Product 3</div>
-          <div class="product-duration">5 + 1 Hour</div>
-          <div class="product-price">₱200.00</div>
-        </div>
-
+    
       </div>
       
       <div class="payment-method">
@@ -304,7 +327,7 @@
 
       <div class="form-actions">
         <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
-        <button class="buy-now">BUY NOW</button>
+        <a href="Hour Package Order Details.html"><button class="buy-now">BUY NOW</button></a>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
