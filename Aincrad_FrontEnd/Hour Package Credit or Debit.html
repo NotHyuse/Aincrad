@@ -98,8 +98,8 @@
     .payment-method-container {
         border: 1px solid #ccc;
         margin-left: 28px;
-        width: 400px;
-        height: 400px;
+        width: 520px;
+        height: 250px;
         padding: 10px 30px;
         border-radius: 8px;
         background: #f9f9f9;
@@ -122,8 +122,9 @@
 
     .form-group label {
       font-weight: bold;
-      font-size: 14px;
+      font-size: 10px;
       color: black;
+      margin-bottom: -5px;
     }
 
     .form-group input {
@@ -131,29 +132,29 @@
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 10px;
       margin-bottom: 10px;
     }
 
     .form-row {
-      display: flex;
+      display: inline;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    .form-row input {
-      font-weight: bold;
-      font-size: 14px;
-      color: black;
-      border: none;
+      margin-right: 15px;
     }
 
     .form-row label {
-      width: 100%;
+      font-weight: bold;
+      font-size: 10px;
+      color: black;
+      margin-right: 10px;
+    }
+
+    .form-row input {
+      width: 30%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 10px;
       margin-bottom: 10px;
     }
 
@@ -168,7 +169,7 @@
     .form-actions {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 50px;
     }
 
     .form-actions button {
@@ -177,6 +178,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-left: 50px;
     }
 
     .form-actions .go-back {
@@ -257,11 +259,11 @@
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price Rate.php" class="click">PRICE RATE</a>
+            <a href="Price_Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
+            <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -283,7 +285,7 @@
         </div>
 
         <div class="payment-method-container">
-          <div class="cash-or-debit">Cash or Debit</div>
+          <div class="cash-or-debit">Credit or Debit Card</div>
           <div class="form-group">
             <label for="card-number">CARD NUMBER</label>
             <input type="password" id="credit-card" name="credit-card" placeholder="Enter Credit Card Here" required>
@@ -292,21 +294,25 @@
           <div class="form-row">
             <label for="expiry-date">EXPIRY DATE</label>
             <input type="password" id="expiry-date" name="expiry-date" placeholder="Enter Expiry Date Here" required>
-            </div>
+          </div>
           
           <div class="form-row">
             <label for="cvc">CVC</label>
             <input type="password" id="cvc" name="cvc" placeholder="Enter CVC Here" required>
-            </div>
-          
+          </div>
+
+          <div class="form-group">
+            <label for="name-of-the-card-holder">NAME OF THE CARD HOLDER</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name Here" required>
+          </div>
+
+          <div class="form-actions">
+            <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
+            <a href="Hour Package Buy.html"><button class="confirm">Confirm</button></a>
           </div>
         </div>
         
     </div>
-      <div class="form-actions">
-        <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
-        <button class="confirm">Confirm</button>
-      </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>

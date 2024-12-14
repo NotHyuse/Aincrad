@@ -195,7 +195,7 @@ if (isset($_POST["Login"])) {
             session_start();
             $_SESSION['Employee_Username'] = $username;
             $_SESSION['Login_Time'] = time();
-            header('Location: Employee_Dashboard.php'); // Redirect to employee dashboard
+            header('Location: PC_Management.php'); // Redirect to employee dashboard
             exit();
 
         default:

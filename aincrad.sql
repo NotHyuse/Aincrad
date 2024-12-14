@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 07:07 PM
+-- Generation Time: Dec 14, 2024 at 04:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,13 +120,13 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`Customer_ID_PK`, `Customer_FirstName`, `Customer_LastName`, `Customer_Username`, `Customer_Birthday`, `Customer_Email`, `Customer_PhoneNumber`, `Customer_Password`, `Account_Type_ID_FK`, `Customer_Balance`) VALUES
-(1, 'CJ', 'Legaspi', 'Hyuse', '2004-03-03', 'trchyuse@gmail.com', '1', '827ccb0eea8a706c4c34a16891f84e7b', 2, 38.09),
+(1, 'CJ', 'Legaspi', 'Hyuse', '2004-03-03', 'trchyuse@gmail.com', '1', '652d6be242c997add0bcbc1c7dfc72ee', 2, 1050.13),
 (3, 'Bins', 'Carabanes', 'bins', '0000-00-00', 'asdas@gmail.com', '123', '827ccb0eea8a706c4c34a16891f84e7b', 2, 120.00),
 (4, 'test', '1', 'tester1', '2019-12-11', 'tester1@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 2, 120.00),
 (5, 'Josh', 'de Ramas', 'Zentexesus', '2004-09-18', 'deramas.joshandrie18@gmail.com', '12345678901', 'e10adc3949ba59abbe56e057f20f883e', 2, 0.00),
 (6, 'tester', '2', 'tester2', '2024-11-28', 'tester2@gmail.com', '12345678901', 'e10adc3949ba59abbe56e057f20f883e', 2, 0.00),
 (7, 'Tester', '3', 'tester3', '2024-12-11', 'tester3@gmail.com', '12345678901', '268e27056a3e52cf3755d193cbeb0594', 2, 0.00),
-(8, 'tester', '4', 'tester4', '2024-11-06', 'tester4@gmail.com', '12345678901', '827ccb0eea8a706c4c34a16891f84e7b', 2, 120.00);
+(8, 'tester', '4', 'tester4', '2024-11-06', 'tester4@gmail.com', '12345678901', '827ccb0eea8a706c4c34a16891f84e7b', 2, 165.00);
 
 -- --------------------------------------------------------
 
@@ -261,9 +261,7 @@ CREATE TABLE `payment_method` (
 CREATE TABLE `pc` (
   `PC_ID_PK` int(2) NOT NULL,
   `PC_Assigned_Number` int(2) DEFAULT NULL,
-  `PC_Type_ID_FK` int(1) DEFAULT NULL,
-  `MAC_Address` char(17) DEFAULT NULL,
-  `DHCP_Config_ID_FK` int(2) DEFAULT NULL
+  `MAC_Address` char(17) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -283,29 +281,15 @@ CREATE TABLE `pc_configurations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pc_specs`
+-- Table structure for table `pc_info_jt`
 --
 
-CREATE TABLE `pc_specs` (
-  `PC_SPECS_ID_PK` int(1) NOT NULL,
-  `PC_SPECS_NAME` char(255) DEFAULT NULL,
-  `PC_SPECS_DESCRIPTION` char(255) DEFAULT NULL,
-  `PC_SPECS_ORIGINAL_PRICE` float(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pc_types`
---
-
-CREATE TABLE `pc_types` (
-  `PC_TYPE_ID_PK` int(1) NOT NULL,
-  `PC_Type_Name` char(255) DEFAULT NULL,
-  `PC_SPECS_ID_FK` int(1) DEFAULT NULL,
-  `PC_PRICE_PER_HR_PHP` float(10,2) DEFAULT NULL,
-  `BOOT_SERVER_ID_FK` int(1) DEFAULT NULL,
-  `CONFIG_ID_FK` int(1) DEFAULT NULL
+CREATE TABLE `pc_info_jt` (
+  `PC_ID_FK` int(2) DEFAULT NULL,
+  `PC_PRICE_PER_HR` float(10,2) DEFAULT NULL,
+  `Boot_Server_ID_FK` int(1) DEFAULT NULL,
+  `PC_Config_ID_FK` int(1) DEFAULT NULL,
+  `DHCP_Config_ID_FK` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -343,7 +327,6 @@ CREATE TABLE `product_list` (
 CREATE TABLE `transaction` (
   `Transaction_ID_PK` int(10) NOT NULL,
   `Transaction_Date` date DEFAULT NULL,
-  `Transaction_Total` float(10,2) DEFAULT NULL,
   `Employee_ID_FK` int(2) DEFAULT NULL,
   `Payment_ID_FK` int(5) DEFAULT NULL,
   `Transaction_Cart_ID_FK` int(10) DEFAULT NULL,
@@ -383,7 +366,8 @@ CREATE TABLE `transaction_log` (
 --
 
 INSERT INTO `transaction_log` (`Log_ID`, `Customer_ID_FK`, `Spending`, `New_Balance`, `Timestamp`) VALUES
-(1, 1, 111.91, 38.09, '2024-12-11 17:29:41');
+(1, 1, 111.91, 38.09, '2024-12-11 17:29:41'),
+(2, 1, 17.42, 20.67, '2024-12-12 01:53:36');
 
 --
 -- Indexes for dumped tables
@@ -486,9 +470,7 @@ ALTER TABLE `payment_method`
 -- Indexes for table `pc`
 --
 ALTER TABLE `pc`
-  ADD PRIMARY KEY (`PC_ID_PK`),
-  ADD KEY `PC_TYPE_ID_FK` (`PC_Type_ID_FK`),
-  ADD KEY `DHCP_CONFIG_ID_FK` (`DHCP_Config_ID_FK`);
+  ADD PRIMARY KEY (`PC_ID_PK`);
 
 --
 -- Indexes for table `pc_configurations`
@@ -497,19 +479,13 @@ ALTER TABLE `pc_configurations`
   ADD PRIMARY KEY (`Config_ID_PK`);
 
 --
--- Indexes for table `pc_specs`
+-- Indexes for table `pc_info_jt`
 --
-ALTER TABLE `pc_specs`
-  ADD PRIMARY KEY (`PC_SPECS_ID_PK`);
-
---
--- Indexes for table `pc_types`
---
-ALTER TABLE `pc_types`
-  ADD PRIMARY KEY (`PC_TYPE_ID_PK`),
-  ADD KEY `PC_SPECS_ID_FK` (`PC_SPECS_ID_FK`),
-  ADD KEY `BOOT_SERVER_ID_FK` (`BOOT_SERVER_ID_FK`),
-  ADD KEY `CONFIG_ID_FK` (`CONFIG_ID_FK`);
+ALTER TABLE `pc_info_jt`
+  ADD KEY `PC_ID_FK` (`PC_ID_FK`),
+  ADD KEY `Boot_Server_ID_FK` (`Boot_Server_ID_FK`),
+  ADD KEY `PC_Config_ID_FK` (`PC_Config_ID_FK`),
+  ADD KEY `DHCP_Config_ID_FK` (`DHCP_Config_ID_FK`);
 
 --
 -- Indexes for table `pc_usage_jt`
@@ -637,18 +613,6 @@ ALTER TABLE `pc_configurations`
   MODIFY `Config_ID_PK` int(1) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pc_specs`
---
-ALTER TABLE `pc_specs`
-  MODIFY `PC_SPECS_ID_PK` int(1) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pc_types`
---
-ALTER TABLE `pc_types`
-  MODIFY `PC_TYPE_ID_PK` int(1) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `product_list`
 --
 ALTER TABLE `product_list`
@@ -670,7 +634,7 @@ ALTER TABLE `transaction_cart`
 -- AUTO_INCREMENT for table `transaction_log`
 --
 ALTER TABLE `transaction_log`
-  MODIFY `Log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -722,19 +686,13 @@ ALTER TABLE `payment`
   ADD CONSTRAINT `PAYMENT_METHOD_FK` FOREIGN KEY (`Payment_Method_FK`) REFERENCES `payment_method` (`Payment_Method_ID_PK`);
 
 --
--- Constraints for table `pc`
+-- Constraints for table `pc_info_jt`
 --
-ALTER TABLE `pc`
-  ADD CONSTRAINT `DHCP_CONFIG_ID_FK` FOREIGN KEY (`DHCP_Config_ID_FK`) REFERENCES `dhcp_settings` (`DHCP_ID_PK`),
-  ADD CONSTRAINT `PC_TYPE_ID_FK` FOREIGN KEY (`PC_Type_ID_FK`) REFERENCES `pc_types` (`PC_TYPE_ID_PK`);
-
---
--- Constraints for table `pc_types`
---
-ALTER TABLE `pc_types`
-  ADD CONSTRAINT `BOOT_SERVER_ID_FK` FOREIGN KEY (`BOOT_SERVER_ID_FK`) REFERENCES `boot_servers` (`Boot_Server_ID_PK`),
-  ADD CONSTRAINT `PC_SPECS_ID_FK` FOREIGN KEY (`PC_SPECS_ID_FK`) REFERENCES `pc_specs` (`PC_SPECS_ID_PK`),
-  ADD CONSTRAINT `pc_types_ibfk_1` FOREIGN KEY (`CONFIG_ID_FK`) REFERENCES `pc_configurations` (`Config_ID_PK`);
+ALTER TABLE `pc_info_jt`
+  ADD CONSTRAINT `pc_info_jt_ibfk_1` FOREIGN KEY (`PC_ID_FK`) REFERENCES `pc` (`PC_ID_PK`),
+  ADD CONSTRAINT `pc_info_jt_ibfk_2` FOREIGN KEY (`Boot_Server_ID_FK`) REFERENCES `boot_servers` (`Boot_Server_ID_PK`),
+  ADD CONSTRAINT `pc_info_jt_ibfk_3` FOREIGN KEY (`PC_Config_ID_FK`) REFERENCES `pc_configurations` (`Config_ID_PK`),
+  ADD CONSTRAINT `pc_info_jt_ibfk_4` FOREIGN KEY (`DHCP_Config_ID_FK`) REFERENCES `dhcp_settings` (`DHCP_ID_PK`);
 
 --
 -- Constraints for table `pc_usage_jt`

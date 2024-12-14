@@ -197,7 +197,7 @@ if(isset($_POST['signUp'])){
 </head>
 <body>
   <div class="form-container">
-    <div class="close-button"><a href="Admin_Dashboard.php">✖</a></div>
+    <div class="close-button"><a href="PC_Management.php">✖</a></div>
     <h1>REGISTER AN ACCOUNT FOR ADMIN</h1>
     <form method = "post" action = "Register_Admin.php">
       <div class="form-row">
@@ -240,7 +240,7 @@ if(isset($_POST['signUp'])){
     </div>      
       <p class="login-link">Register an account for <a href="Register_Customer.php">Customer</a></p>
       <div class="buttons">
-        <button type="button">CANCEL</button>
+        <button type="button"><a href="PC_Management.php">CANCEL</a></button>
         <button type="submit" name = "signUp">REGISTER</button>
       </div>
     </form>
