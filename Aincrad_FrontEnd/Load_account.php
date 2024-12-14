@@ -75,8 +75,6 @@ HTML;
   }
 }
 
-
-
 if (isset($_POST['ADD'])) {
   $amountToAdd = floatval($_POST['amount']);
 
