@@ -58,7 +58,7 @@ include("connect.php");
     .sidebar .menu-item {
       display: flex;
       align-items: center;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
       margin-top: 13px;
       margin-left: 10px;
     }
@@ -158,9 +158,13 @@ include("connect.php");
     color: black; 
     text-decoration: underline;
     }
-
-    .Logout button {
-        color: white;
+    .Logout {
+      grid-column: span 2;
+      display: flex;
+      justify-content: right;
+    }
+    .Logout button a{
+        color: black;
         border: none;
         background: none;
         text-align: center;
@@ -170,12 +174,15 @@ include("connect.php");
         cursor: pointer;
         border-radius: 20px;
         width: 150px;
-        margin-right: 400px;
         position: absolute;
         bottom: 30px;
+        text-decoration: none;
+        background-color: white;
+        padding: 7px;
+        transition: background-color 0.3s, transform 0.3s;
     }
 
-    .Logout :hover {
+    .Logout button:hover {
       color: whitesmoke;
     }
 
@@ -197,16 +204,12 @@ include("connect.php");
         <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
       </div>
       <div class="menu-item">
-        <img src="credit-card.png" alt="Recharge Card">
-        <a href="Recharge Card.html" class="click">RECHARGE CARD</a>
-      </div>
-      <div class="menu-item">
         <img src="hourglass.png" alt="Hour Package">
         <a href="Hour Package.php" class="click">HOUR PACKAGE</a>
       </div>
       <div class="menu-item">
         <img src="restaurant.png" alt="Food Menu">
-        <a href="Food Menu.html" class="click">FOOD MENU</a>
+        <a href="Food Menu.php" class="click">FOOD MENU</a>
       </div>
     </div>
     <div class="main">
@@ -216,7 +219,7 @@ include("connect.php");
         <img src="Logo.png" alt="Logo">
       </div>
       <div class="Logout">
-        <button><i class="bi bi-box-arrow-left"></i><a href = "logout.php">LOG OUT</button>
+        <button><a href = "logout.php">LOG OUT</button>
       </div>
     </div>
   </div>

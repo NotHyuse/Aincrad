@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .sidebar .menu-item {
       display: flex;
       align-items: center;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
       margin-top: 13px;
       margin-left: 10px;
     }
@@ -331,10 +331,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
             <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
-          </div>
-          <div class="menu-item">
-            <img src="credit-card.png" alt="Recharge Card">
-            <a href="Recharge Card.html" class="click">RECHARGE CARD</a>
           </div>
           <div class="menu-item">
             <img src="hourglass.png" alt="Hour Package">
