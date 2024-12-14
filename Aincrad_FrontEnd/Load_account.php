@@ -122,60 +122,56 @@ if (isset($_POST['ADD'])) {
     }
 
     .form {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 20px;
+  gap: 20px; 
+}
 
-    .form-group {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+.form-group {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px;
+}
 
-    .form-group label {
-      font-size: 15px;
-      font-weight: bold;
-      color: white;
-    }
+.form-group input {
+  width: 150px;
+  height: 30px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 5px;
+}
 
-    .form-group input {
-      width: 180px;
-      height: 30px;
-      border: 1px solid #000;
-      border-radius: 20px;
-      padding: 5px;
-    }
+.form-group label {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+.form-group button {
+  width: 100px;
+  height: 30px;
+  background-color: #e0e0e0;
+  border: 1px solid #000;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
 
-    .form-group button {
-      width: 80px;
-      height: 30px;
-      background-color: #e0e0e0;
-      border: 1px solid #000;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 5px;
-      margin-left: auto;
-    }
+.logo {
+  width: 260px; 
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(Logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 30px;
+}
 
-    .form-group button:hover {
-      background-color: #d0d0d0;
-    }
-
-    .logo {
-      width: 250px;
-      height: 150px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-image: url(Logo.png);
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
 
     .details {
       margin: 0px;
@@ -195,7 +191,7 @@ if (isset($_POST['ADD'])) {
       margin: 10px;
     }
 
-    .close {
+    .close a{
       position: absolute;
       top: 10px;
       right: 20px;
@@ -214,21 +210,19 @@ if (isset($_POST['ADD'])) {
     <div class="header">LOAD AN ACCOUNT</div>
 
     <div class="form">
-      <div class="form-group">
-        <form id="detailsForm" method="POST">  </form>
-          <label for="username">ENTER USERNAME:</label>
-          <input type="text" name="username" form="detailsForm" >
-          <button type="submit" name="DETAILS" form="detailsForm">DETAILS</button>
-      </div>
-      <div class="form-group">
-        <form method = "POST" action="Load_account.php">
-        <label for="amount">AMOUNT:</label>
-        <input type="number" name="amount" style="width: 120px;">
-        <button type="submit" name="ADD">ADD</button>
-        </form>
-      </div>
-      <div class="logo"></div>
-    </div>
+  <div class="form-group">
+    <label for="username">ENTER USERNAME:</label>
+    <input type="text" name="username" form="detailsForm">
+    <button type="submit" name="DETAILS" form="detailsForm">DETAILS</button>
+  </div>
+  <div class="form-group">
+    <label for="amount">AMOUNT:</label>
+    <input type="number" name="amount" style="width: 120px;">
+    <button type="submit" name="ADD">ADD</button>
+  </div>
+  <div class="logo"></div>
+</div>
+
 
     <div class="details">
       <label for="name">NAME: <span id="name"></span></label>

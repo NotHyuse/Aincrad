@@ -157,23 +157,32 @@ if(isset($_POST['signUp'])){
       margin-top: 20px;
       margin-left: 300px;
     }
-    button {
+    .buttons button {
       flex: 1;
       padding: 10px;
       font-size: 12px;
       font-weight: bold;
       border: 1px solid black;
-      background-color: white;
       border-radius: 20px;
       cursor: pointer;
       margin-right: 10px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s; 
     }
-    button:last-child {
-      margin-right: 0;
+
+    .buttons a {
+      color: black;
+      text-decoration: none;
     }
-    button:hover {
-      background-color: #f0f0f0;
+
+    .buttons button:hover {
+      background-color: white;
+      transform: scale(1.05);
+      text-decoration: none;
+      color: black;
     }
+
+
     p.login-link {
       text-align: right;
       margin-right: 100px;
