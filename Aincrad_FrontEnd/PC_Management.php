@@ -274,6 +274,13 @@ if ($result && mysqli_num_rows($result) > 0) {
             <img src="computer.png" alt="PC-3">
             <span>PC-8</span>
           </div>
+          <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
       </div>
       

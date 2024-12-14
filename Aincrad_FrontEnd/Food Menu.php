@@ -184,7 +184,7 @@ include('connect.php');
 
     .cart-btn {
       border: none;
-      background: white;
+      background: whitesmoke;
       color: black;
       padding: 10px 40px;
       border-radius: 5px;

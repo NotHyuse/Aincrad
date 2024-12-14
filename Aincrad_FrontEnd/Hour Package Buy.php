@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .sidebar .menu-item {
       display: flex;
       align-items: center;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
       margin-top: 13px;
       margin-left: 10px;
     }
@@ -294,13 +294,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         transform: scale(1.05); 
     }
 
-    .close-button {
+    .close-button a{
       position: absolute;
       top: 10px;
       right: 20px;
       font-size: 18px;
       cursor: pointer;
       color: white;
+      text-decoration: none;
     }
 
     .click {

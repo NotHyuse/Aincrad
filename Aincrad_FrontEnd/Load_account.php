@@ -329,7 +329,7 @@ HTML;
       margin: 10px;
     }
 
-    .close {
+    .close  {
       position: absolute;
       top: 10px;
       right: 20px;

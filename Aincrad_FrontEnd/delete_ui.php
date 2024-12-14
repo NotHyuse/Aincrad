@@ -3,7 +3,7 @@ session_start();
 include("connect.php");
 
 // Fetch customer data from the database
-$query = "SELECT * FROM Customer";  // Adjust the table name and columns if needed
+$query = "SELECT * FROM Customer";  
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
@@ -56,7 +56,7 @@ if (!$result) {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 10px;
-      color: white;
+      color: whitesmoke;
     }
 
     .orders-list {
@@ -65,14 +65,14 @@ if (!$result) {
       border: 2px solid white;
       border-radius: 20px;
       padding: 10px;
-      overflow-y: auto;
-      background-color: whitesmoke;
       overflow: auto;
+      background-color:whitesmoke;
     }
 
     .orders-list table {
       width: 100%;
       border-collapse: collapse;
+      background-color:whitesmoke;
     }
 
     .orders-list table th, 
@@ -100,6 +100,11 @@ if (!$result) {
       font-weight: bold;
       margin-bottom: 20px;
       color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      height: 60%; 
     }
 
     .details {
@@ -141,9 +146,12 @@ if (!$result) {
 
     .buttons {
       position: absolute;
-      bottom: 20px;
+      bottom: 250px;
       display: flex;
-      gap: 70px;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+      justify-content: center; 
     }
 
     .buttons button {
@@ -177,40 +185,47 @@ if (!$result) {
       text-decoration: none;
     }
 
-    </style>
+    .checkbox {
+      width: auto;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="orders-section">
       <div class="header">ACCOUNTS</div>
       <div class="orders-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>IGN</th>
-              <th>BIRTHDAY</th>
-              <th>EMAIL</th>
-              <th>PHONE #</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            // Loop through the result set and display data in the table
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['Customer_ID_PK']) . "</td>";  // Assuming column names are 'id', 'name', etc.
-                echo "<td>" . htmlspecialchars($row['Customer_FirstName'] . " " . $row['Customer_LastName']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['Customer_Username']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['Customer_Birthday']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['Customer_Email']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['Customer_PhoneNumber']) . "</td>";
-                echo "</tr>";
-            }
-            ?>
-          </tbody>
-        </table>
+        <form id="delete-form" method="POST" action="delete.php">
+          <table>
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>IGN</th>
+                <th>BIRTHDAY</th>
+                <th>EMAIL</th>
+                <th>PHONE #</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              // Loop through the result set and display data in the table
+              while ($row = mysqli_fetch_assoc($result)) {
+                  echo "<tr>";
+                  echo "<td class='checkbox'><input type='checkbox' name='selected_ids[]' value='" . htmlspecialchars($row['Customer_ID_PK']) . "'></td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_ID_PK']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_FirstName'] . " " . $row['Customer_LastName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_Username']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_Birthday']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_Email']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Customer_PhoneNumber']) . "</td>";
+                  echo "</tr>";
+              }
+              ?>
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
 
@@ -218,14 +233,24 @@ if (!$result) {
       <a href="PC_Management.php"><div class="close">&times;</div></a>
         <div class="details" style="margin-top: 80px;">
           <img src="delete.png" alt="DEL">
-          <a href="delete_ui.php" class="click"><button>DELETE ACCOUNT</button></a>
-        </div>
-        <div class="details">
-          <img src="edit.png" alt="EDIT">
-          <a href="edit_account_UI.php" class="click"><button>EDIT AN ACCOUNT</button></a>
+          <button type="button" class="click" onclick="confirmDelete()">DELETE ACCOUNT</button>
         </div>
     </div>      
   </div>
+
+  <script>
+    function confirmDelete() {
+      const form = document.getElementById('delete-form');
+      const checkboxes = form.querySelectorAll('input[name="selected_ids[]"]:checked');
+      if (checkboxes.length > 0) {
+        if (confirm('Are you sure you want to delete the selected accounts?')) {
+          form.submit();
+        }
+      } else {
+        alert('Please select at least one account to delete.');
+      }
+    }
+  </script>
 </body>
 </html>
 

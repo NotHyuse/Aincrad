@@ -189,7 +189,7 @@ include("connect.php");
     }
 
     .go-back-button {
-        background-color: white;
+        background-color: whitesmoke;
         color: black;
         border: none;
         padding: 10px 20px;
@@ -222,7 +222,7 @@ include("connect.php");
     }
 
     .form-actions .cancel {
-        background-color: white;
+        background-color: whitesmoke;
         color: black;
         border: none;
         padding: 10px 20px;
@@ -240,12 +240,12 @@ include("connect.php");
     }
 
     .form-actions .cancel:hover {
-        background-color: white;
+        background-color: whitesmoke;
         transform: scale(1.05); 
     }
 
     .form-actions .confirm-payment {
-        background-color: white;
+        background-color: whitesmoke;
         color: black;
         border: none;
         padding: 10px 20px;
@@ -263,7 +263,7 @@ include("connect.php");
     }
 
     .form-actions .confirm-payment:hover {
-        background-color: white;
+        background-color: whitesmoke;
         transform: scale(1.05); 
     }
 

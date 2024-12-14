@@ -151,7 +151,7 @@ include("connect.php");
     }
 
     .form-actions .go-back {
-        background-color: white;
+        background-color: whitesmoke;
         color: black;
         border: none;
         padding: 10px 20px;
@@ -169,12 +169,12 @@ include("connect.php");
     }
 
     .form-actions .go-back:hover {
-        background-color: white;
+        background-color: whitesmoke;
         transform: scale(1.05); 
     }
 
     .form-actions .confirm {
-        background-color: white;
+        background-color: whitesmoke;
         color: black;
         border: none;
         padding: 10px 20px;
@@ -192,7 +192,7 @@ include("connect.php");
     }
 
     .form-actions .confirm:hover {
-        background-color: white;
+        background-color: whitesmoke;
         transform: scale(1.05); 
     }
 
