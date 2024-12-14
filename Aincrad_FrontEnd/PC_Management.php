@@ -141,21 +141,29 @@ include("connect.php");
     }
 
     .menu-item img {
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
       margin-right: 10px;
     }
 
-    .menu-item span {
+    .menu-item a {
+      text-decoration: none;
       font-size: 14px;
       text-transform: uppercase;
       font-weight: bold;
       color: white;
+      background: none;
+    }
+    .menu-item button{
+      text-decoration: none;
+      color: black;
+      background-color: transparent;
+      border: none;
+    }
+    .menu-item :hover {
+      font-weight: bold;
     }
 
-    .menu-item:hover {
-      background-color: rgb(0, 0, 50);
-    }
 
     .logo {
       text-align: center;
@@ -258,23 +266,23 @@ include("connect.php");
       <div class="menu">
         <div class="menu-item">
           <img src="register.png" alt="Register">
-          <a href = "Register_Customer.php"></a><button><span>Register an Account</span></button></a>
+          <button><span><a href = "Register_Customer.php">Register an Account</a></span></button>
         </div>
         <div class="menu-item">
           <img src="credit-card.png" alt="Load">
-          <a href = "Load_account.php"></a><button><span>Load An Account</span></button></a>
+          <button><span><a href = "Load_account.php">Load An Account</a></span></button>
         </div>
         <div class="menu-item">
           <img src="grocery-store.png" alt="Orders">
-          <a href = "Admin_Order.php"></a><button><span>Orders</span></button></a>
+          <button><span><a href = "Admin_Order.php">Orders</a></span></button>
         </div>
         <div class="menu-item">
           <img src="user.png" alt="Accounts">
-          <a href = "Admin_Accounts.php"></a><button><span>Accounts</span></button></a>
+          <button><span><a href = "Admin_Accounts.php">Accounts</a></span></button>
         </div>
         <div class="menu-item">
           <img src="logout.png" alt="Logout">
-          <a href = "logout.php"><button>Logout</button></a>
+          <button><a href = "logout.php">Logout</a></button>
         </div>
       </div>
 
