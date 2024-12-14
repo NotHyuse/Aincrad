@@ -1,3 +1,7 @@
+<?php 
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +40,8 @@
     }
 
     .orders-section {
-      width: 90%;
+      width: 60%;
+      border-right: 3px solid white;
       padding: 20px;
     }
 
@@ -85,58 +90,26 @@
       font-weight: bold;
       margin-bottom: 20px;
       color: white;
-      text-align: center;
-      display: flex;
-      justify-content: center; 
-      align-items: center; 
-      height: 60%; 
     }
 
     .details {
+      margin-bottom: 20px;
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 25px;
     }
-
 
     .details span {
       font-size: 14px;
       font-weight: bold;
       color: white;
     }
-    .details img {
-      width: 50px;
-      height: 50px;
-      border: none;
-    }
-    
-    .details:hover {
-      background-color: transparent;
-    }
-
-    .click {
-        background-color: transparent;
-        cursor: pointer;
-    }
-
-    .details button {
-        background-color: transparent;
-        border: none;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-    }
 
     .buttons {
       position: absolute;
-      bottom: 250px;
+      bottom: 20px;
       display: flex;
-      gap: 10px;
-      align-items: center;
-      text-align: center;
-      justify-content: center; 
+      gap: 70px;
     }
 
     .buttons button {
@@ -175,17 +148,14 @@
 <body>
   <div class="container">
     <div class="orders-section">
-      <div class="header">ACCOUNTS</div>
+      <div class="header">ORDERS</div>
       <div class="orders-list">
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
-              <th>IGN</th>
-              <th>BIRTHDAY</th>
-              <th>EMAIL</th>
-              <th>PHONE #</th>
+              <th>CUSTOMER'S NAME</th>
+              <th>TOTAL</th>
             </tr>
           </thead>
           <tbody>
@@ -195,13 +165,21 @@
     </div>
 
     <div class="details-section">
-      <div class="close">&times;</div>
-      <div class="header">DELETE ACCOUNT?</div>
-        <div class="buttons">
-            <button>CANCEL</button>
-            <button>DELETE</button>
-          </div>
-      </div>      
+      <div class="close"><a href = "PC_Management.php">&times;</a></div>
+      <div class="header">ORDER DETAILS</div>
+      <div class="details">
+        <span>ID:</span>
+        <span>CUSTOMER:</span>
+        <span>ORDERS:</span>
+        <span style="margin-top: 150px;">TOTAL:</span>
+        <span>DATE:</span>
+        <span>PAYMENT TYPE:</span>
+      </div>
+      <div class="buttons">
+        <button>BACK</button>
+        <button>COMPLETE</button>
+      </div>
+    </div>
   </div>
 </body>
 </html>

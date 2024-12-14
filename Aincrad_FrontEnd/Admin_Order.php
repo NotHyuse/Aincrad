@@ -1,7 +1,21 @@
-<?php 
+<?php
 session_start();
 include("connect.php");
+
+// Fetch order data from the Transaction table
+$sql = "SELECT * FROM Transaction"; // You might need to add WHERE clause for specific orders
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Error fetching data: " . mysqli_error($conn));
+}
+
+$orders = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $orders[] = $row;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,42 +158,69 @@ include("connect.php");
     }
 
   </style>
+    <script>
+        function showOrderDetails(orderId) {
+            // Make an AJAX request to get order details
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var orderDetails = JSON.parse(this.responseText);
+                    document.getElementById("orderId").innerText = orderDetails.Transaction_ID_PK;
+                    document.getElementById("customerName").innerText = orderDetails.Customer_ID_FK; // Assuming you have customer name available
+                    document.getElementById("orders").innerText = orderDetails.Order_ID_FK; // Assuming you have order details available
+                    document.getElementById("total").innerText = orderDetails.Transaction_Total;
+                    document.getElementById("date").innerText = orderDetails.Transaction_Date;
+                    document.getElementById("paymentType").innerText = orderDetails.Transaction_Type;
+
+                }
+            };
+            xhttp.open("GET", "get_order_details.php?id=" + orderId, true);
+            xhttp.send();
+        }
+    </script>
 </head>
 <body>
-  <div class="container">
-    <div class="orders-section">
-      <div class="header">ORDERS</div>
-      <div class="orders-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>CUSTOMER'S NAME</th>
-              <th>TOTAL</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div class="container">
+        <div class="orders-section">
+            <div class="header">ORDERS</div>
+            <div class="orders-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CUSTOMER'S NAME</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($orders as $order): ?>
+                            <tr onclick="showOrderDetails(<?php echo $order['Transaction_ID_PK']; ?>)">
+                                <td><?php echo $order['Transaction_ID_PK']; ?></td>
+                                <td><?php echo $order['Customer_ID_FK']; ?></td>  
+                                <td><?php echo $order['Transaction_Total']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <div class="details-section">
-      <div class="close"><a href = "PC_Management.php">&times;</a></div>
-      <div class="header">ORDER DETAILS</div>
-      <div class="details">
-        <span>ID:</span>
-        <span>CUSTOMER:</span>
-        <span>ORDERS:</span>
-        <span style="margin-top: 150px;">TOTAL:</span>
-        <span>DATE:</span>
-        <span>PAYMENT TYPE:</span>
-      </div>
-      <div class="buttons">
-        <button>BACK</button>
-        <button>COMPLETE</button>
-      </div>
+        <div class="details-section">
+            <a href="PC_Management.php" class="close">×</a>
+            <div class="header">ORDER DETAILS</div>
+            <div class="details">
+                <span>ID: <span id="orderId"></span></span>
+                <span>CUSTOMER: <span id="customerName"></span></span>
+                <span>ORDERS: <span id="orders"></span></span>
+                <span>TOTAL: <span id="total"></span></span>
+                <span>DATE: <span id="date"></span></span>
+                <span>PAYMENT TYPE: <span id="paymentType"></span></span>
+            </div>
+            <div class="buttons">
+                <button>BACK</button>
+                <button>COMPLETE</button>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>

@@ -258,23 +258,23 @@ include("connect.php");
       <div class="menu">
         <div class="menu-item">
           <img src="register.png" alt="Register">
-          <button><span><a href = "Register_Customer.php">Register an Account</a></span></button>
+          <a href = "Register_Customer.php"></a><button><span>Register an Account</span></button></a>
         </div>
         <div class="menu-item">
           <img src="credit-card.png" alt="Load">
-          <button><span><a href = "Load_account.php">Load An Account</a></span></button>
+          <a href = "Load_account.php"></a><button><span>Load An Account</span></button></a>
         </div>
         <div class="menu-item">
           <img src="grocery-store.png" alt="Orders">
-          <button><span><a href = "Admin_Order.php">Orders</a></span></button>
+          <a href = "Admin_Order.php"></a><button><span>Orders</span></button></a>
         </div>
         <div class="menu-item">
           <img src="user.png" alt="Accounts">
-          <button><span><a href = "Admin_Accounts.php">Accounts</a></span></button>
+          <a href = "Admin_Accounts.php"></a><button><span>Accounts</span></button></a>
         </div>
         <div class="menu-item">
           <img src="logout.png" alt="Logout">
-          <button><a href = "logout.php">Logout</a></button>
+          <a href = "logout.php"></a><button>Logout</button></a>
         </div>
       </div>
 

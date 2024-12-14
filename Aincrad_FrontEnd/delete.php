@@ -1,7 +1,8 @@
-<?php 
+<a?php 
 session_start();
 include("connect.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,6 +90,11 @@ include("connect.php");
       font-weight: bold;
       margin-bottom: 20px;
       color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      height: 60%; 
     }
 
     .details {
@@ -130,9 +136,12 @@ include("connect.php");
 
     .buttons {
       position: absolute;
-      bottom: 20px;
+      bottom: 250px;
       display: flex;
-      gap: 70px;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+      justify-content: center; 
     }
 
     .buttons button {
@@ -191,15 +200,12 @@ include("connect.php");
     </div>
 
     <div class="details-section">
-      <a href = "PC_Management.php"><div class="close">&times;</div></a>
-        <div class="details" style="margin-top: 80px;">
-          <img src="delete.png" alt="DEL">
-          <a href="delete.php" class="click"><button>DELETE AN ACCOUNT</button></a>
-        </div>
-        <div class="details">
-          <img src="edit.png" alt="EDIT">
-          <a href="edit_account.php" class="click"><button>EDIT AN ACCOUNT</button></a>
-        </div>
+      <a href="Admin_Accounts.php"><div class="close">&times;</div></a>
+      <div class="header">DELETE ACCOUNT?</div>
+        <div class="buttons">
+            <a href="Admin_Accounts.php"><button>CANCEL</button></a>
+            <button>DELETE</button>
+          </div>
       </div>      
   </div>
 </body>

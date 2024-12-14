@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,7 +205,7 @@
         <input type="tel" id="phone" placeholder="Enter phone number" required>
 
         <div class="button-row">
-            <button type="submit">BACK</button>
+            <a href="Admin_accounts.php"><button type="submit">BACK</button></a>
             <button type="submit">CONFIRM</button>
           </div>
     </div>      
