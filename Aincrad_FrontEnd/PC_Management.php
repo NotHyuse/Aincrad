@@ -267,7 +267,7 @@ include("connect.php");
       <div class="menu">
         <div class="menu-item">
           <img src="register.png" alt="Register">
-          <button><span><a href = "Register_Customer.php">Register an Account</a></span></button>
+          <button><span><a href = "Register_Customer.php">Register Account</a></span></button>
         </div>
         <div class="menu-item">
           <img src="credit-card.png" alt="Load">

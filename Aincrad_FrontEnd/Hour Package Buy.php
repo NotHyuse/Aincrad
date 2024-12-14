@@ -1,6 +1,44 @@
 <?php
 session_start();
 include("connect.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['Product 1']) || isset($_POST['Product 2']) || isset($_POST['Product 3'])) {
+        $selectedProduct = "";
+        if (isset($_POST['Product 1'])) {
+            $selectedProduct = "Product 1";
+        } elseif (isset($_POST['Product 2'])) {
+            $selectedProduct = "Product 2";
+        } elseif (isset($_POST['Product 3'])) {
+            $selectedProduct = "Product 3";
+        }
+
+        // Assuming you have a user ID stored in the session
+        if (isset($_SESSION['user_id'])) {  // Replace 'user_id' with your actual session variable
+            $userId = $_SESSION['user_id'];
+
+            // Sanitize the input to prevent SQL injection (assuming $connect is your database connection)
+            $selectedProduct = mysqli_real_escape_string($connect, $selectedProduct);
+
+            // Update the database.  Adjust table and column names as needed.
+            $sql = "UPDATE users SET selected_product = '$selectedProduct' WHERE user_id = '$userId'";
+
+
+            if (mysqli_query($connect, $sql)) {
+                // Success - redirect or display a message
+                // Example redirect:
+                header("Location: Hour_Package_Order_Details.php"); 
+                exit(); // Important to stop further execution after redirect
+            } else {
+                echo "Error updating record: " . mysqli_error($connect);
+            }
+        } else {
+            // Handle the case where the user ID is not in the session.  Perhaps redirect to login.
+            echo "User ID not found in session.";
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -301,32 +339,30 @@ include("connect.php");
       </div>
     
       <div class="product-actions">
-        <div class="products">
-          <button><div class="product">
-              <div class="product-name">Product 1</div>
-              <div class="product-duration">1 Hour</div>
-              <div class="product-price">₱40.00</div>
-          </div>
-     
-           <button><div class="product">
-              <div class="product-name">Product 2</div>
-              <div class="product-duration">3 Hours</div>
-              <div class="product-price">₱120.00</div>
-            </div></button>
-        
-          <button><div class="product">
-             <div class="product-name">Product 3</div>
-              <div class="product-duration">5 + 1 Hour</div>
-              <div class="product-price">₱200.00</div>
-          </div></button>
+           <div class="products">
+             <form method="POST" action="">  </form>
+               <button type="submit" name="Product 1" value="Product 1" class="product">
+               <div class="product-name">Product 1</div>
+               <div class="product-duration">1 Hour</div>
+               <div class="product-price">₱40.00</div>
+              </button>
+              <button type="submit" name="Product 2" value="Product 2" class="product">
+                 <div class="product-name">Product 2</div>
+                 <div class="product-duration">3 Hours</div>
+                 <div class="product-price">₱120.00</div>
+               </button>
+               <button type="submit" name="Product 3" value="Product 3" class="product">
+                 <div class="product-name">Product 3</div>
+                 <div class="product-duration">5 + 1 Hour</div>
+                 <div class="product-price">₱200.00</div>
+               </button>
+           </div>
         </div>
-    
-      </div>
       
       <div class="payment-method">
         <div class="payment-method-title">Payment Method</div>
         <div class="type-of-payment">Type of Payment:</div>
-        <a href="Hour Package Payment Method.html"><div class="change-button">CHANGE</div></a>
+        <a href="Hour Package Payment Method.php"><div class="change-button">CHANGE</div></a>
       </div>
 
       <div class="form-actions">

@@ -345,7 +345,7 @@ include("connect.php");
     <div class="go-back-button">Go Back</div>
 
       <div class="form-actions">
-        <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
+        <a href="Hour Package.php"><button class="cancel">Cancel</button></a>
         <button class="confirm-payment">Confirm Payment</button>
       </div>
 

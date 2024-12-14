@@ -235,8 +235,8 @@ include("connect.php");
         </div>
 
         <div class="payment-method-container">
-            <div class="payment-methods"><a href="Hour Package GCash.html">GCash</a></div>
-            <div class="payment-methods"><a href="Hour Package Credit or Debit.html">Credit or Debit Card</a></div>
+            <div class="payment-methods"><a href="Hour Package GCash.php">GCash</a></div>
+            <div class="payment-methods"><a href="Hour Package Credit or Debit.php">Credit or Debit Card</a></div>
             <div class="payment-methods"><a href="">Link Bank Account</a></div>
         </div>
 
