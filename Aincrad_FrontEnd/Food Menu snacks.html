@@ -6,7 +6,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
-  <title>Food Menu</title>
+  <title>Food Menu </title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     
@@ -68,6 +68,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      margin-left: -255px;
     }
 
     .header {
@@ -94,32 +95,81 @@
 
     .items {
       margin-left: 10px;
-      margin-top: 20px;
+      margin-top: 10px;
       display: flex;
       justify-content: center;
       gap: 10px;
+      bottom: 100px;
     }
 
     .item {
-      border: 1px solid #ccc;
-      width: 150px;
-      text-align: left;
-      padding: 20px 10px;
-      border-radius: 8px;
-      background: #f9f9f9;
-      line-height: 0.2;
+      background : white;
+      Position : relative;
+      margin-top : 10px;
+      margin-bottom: 300px;
+      margin-left: -301px;
+      height: 11000x;
+      width: 180px;
+      border-radius: 10px;
+
     }
 
     .image-placeholder {
+      position: relative;
       width: 100px;
       height: 100px;
       background: #ddd;
       margin: 0 auto 10px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      align-items: center;      
+      margin-top: 20px;
 
+
+    }
+    .size{
+      color: #ffffff;
+      margin-left: 10px;  
+      display:inline-flex;
+      gap:100px;
+    }
+    .sizebtn {
+    margin-left:100px;
+    display: inline-flex;
+    height: 50px;
+    width: 340px;
+    margin-top: 30px;
+    margin-left:-35px;
+    gap: 50px;
+    border-radius: 10px;
+      
+    }
+    .Food-name-drop-down {
+    background-color: #ddd;
+    color:black;
+    height: 50px;
+    width: 207px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top:190px;
+    margin-left: -380px;
+    }
+    .fddropdown-content {
+      display:none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 175px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 20px 16px;
+      z-index: 1;
+      height: 15px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      margin-top:initial  ;
+    } 
+    .Food-name-drop-down:hover .fddropdown-content {
+      display: grid ;
+
+    }
     .add-btn {
       margin-top: 10px;
       display: block;
@@ -162,25 +212,32 @@
     }
 
     .footer {
-      display: block;
+      display: flex;
       flex-direction: row;
       align-items: left;
-      margin-top: 10px;
-      margin-left: 20px;
-      color: white;
+      margin-left: -200px;
+      line-height: 0.0001px;
+      color: white; 
     }
 
     .footer p {
-      margin: 0 0 10px;
+      margin: 0 0 px;
     }
 
     .cart-btn {
+      display: inline flex;
       border: none;
       background: white;
       color: black;
-      padding: 10px 40px;
       border-radius: 5px;
       cursor: pointer;
+      width: 150px ;
+      margin-top: 334px;
+      line-height: 10px;
+      display: flex;
+      max-height: 50px;
+      margin-left: -120px;
+      margin-right: -200px;
     }
 
     .cart-btn:hover {
@@ -234,36 +291,31 @@
         <h2>Food Menu</h2>
         <button>&times;</button>
       </div>
-
       <div class="items">
         <div class="item">
-          <img src="fried chicken.jpg" alt="Item 1" class="image-placeholder">
-          <td>Finger Foods</td>
-          <p>₱ 0.00</p>
-          <a href="Food Menu fingerfood.html"><button class="add-btn">+</button></a>
-        </div>
-        <div class="item">
-            <img src="chips.jpg" alt="Item 1" class="image-placeholder">
+          <img src="chips.jpg" alt="Item 1" class="image-placeholder">
           <td>Snacks</td>
           <p>₱ 0.00</p>
-          <a href="Food Menu snacks.html"><button class="add-btn">+</button></a>
-        </div>
-        <div class="item">
-            <img src="drinks.jpg" alt="Item 1" class="image-placeholder">
-          <td>Bevarages</td>
-          <p>₱ 0.00</p>
-          <a href="Food Menu Beverage.html"><button class="add-btn">+</button></a>
-        </div>
+          <button class="add-btn">+</button>
+        </div> 
+      <div class="size">
+        <h1>Size</h1>
       </div>
-
-      <div class="navigation">
-        <button>&lt;</button>
-        <button>&gt;</button>
+      <div class="sizebtn">
+        <button class ="sizebtn">Small</button>
+        <button class ="sizebtn">medium</button>
+        <button class ="sizebtn">large</button>
       </div>
-
-      <div class="footer">
-        <p>Total: ₱ 0.00</p>
+      <div class="Food-name-drop-down">
+        <p>Food Names</p>
+        <dev class="fddropdown-content">
+        <button>Nova</button>
+      </div>
+      <p>Total: ₱ 0.00</p>       
         <button class="cart-btn">View my cart</button>
+        <button class="cart-btn">cancel</button>
+        <button class="cart-btn">Add to Cart</button>
+      </div>
       </div>
     </div>
   </div>
