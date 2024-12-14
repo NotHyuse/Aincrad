@@ -330,8 +330,8 @@ include("connect.php");
       </div>
 
       <div class="form-actions">
-        <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
-        <a href="Hour Package Order Details.html"><button class="buy-now">BUY NOW</button></a>
+        <a href="Hour Package.php"><button class="cancel">Cancel</button></a>
+        <a href="Hour Package Order Details.php"><button class="buy-now">BUY NOW</button></a>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>

@@ -260,8 +260,8 @@ include("connect.php");
         
     </div>
       <div class="form-actions">
-        <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
-        <a href="Hour Package Buy.html"><button class="confirm">Confirm</button></a>
+        <a href="Hour Package Payment Method.php"><button class="go-back">Go Back</button></a>
+        <a href="Hour Package Buy.php"><button class="confirm">Confirm</button></a>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>

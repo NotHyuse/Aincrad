@@ -241,7 +241,7 @@ include("connect.php");
         </div>
 
       <div class="form-actions">
-        <a href="Hour Package Buy.html"><button class="go-back">Go Back</button></a>
+        <a href="Hour Package Buy.php"><button class="go-back">Go Back</button></a>
         <button class="confirm">Confirm</button>
       </div>
 
