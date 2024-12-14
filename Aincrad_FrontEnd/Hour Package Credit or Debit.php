@@ -1,8 +1,13 @@
+<?php
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
@@ -87,126 +92,88 @@
     .content h2 {
       font-size: 20px;
       font-weight: normal;
-      margin-bottom: 20px;
+      margin-bottom:10px;
       margin-left: 30px;
-      margin-top: 20px;
+      margin-top: 0px;
       color: white;
       font-family: 'League Spartan';
     }
 
-    .product {
-      border: 1px solid #ccc;
-      width: 150px;
-      padding: 15px;
-      text-align: left;
-      border-radius: 8px;
-      background: #f9f9f9;
-      line-height: 20px;
-      margin-left: 28px;
+    .payment-method-container {
+        border: 1px solid #ccc;
+        margin-left: 28px;
+        width: 520px;
+        height: 250px;
+        padding: 10px 30px;
+        border-radius: 8px;
+        background: #f9f9f9;
     }
 
-    .product .product-name {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 0px;
+    .cash-or-debit {
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        line-height: 20px;
+        text-align: left;
     }
 
-    .product .product-duration {
-      font-size: 12px;
-      font-weight: normal;
-      margin-bottom: 15px;
-    }
-    
-    .product .product-price {
-      font-size: 16px;
-      font-weight: bold;
-      margin-left: 70px;
-    }
-
-    .quantity-buttons {
+    .form-group {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin-right: 175px;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      font-size: 10px;
+      color: black;
       margin-bottom: -5px;
     }
 
-    .quantity-button {
-      margin-top: -25px;
-      display: inline-flex;
-      border: none;
-      background: rgb(255, 255, 255);
-      color: rgb(0, 0, 0);
-      padding: 5px 10px;
-      border-radius: 35px;
-      cursor: pointer;
-      font-weight: 700;
-      margin-left: 15px;
-    }
-
-    .quantity-button:hover {
-      background: #45a049;
-      padding: 5px 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 35px;
-      cursor: pointer;
-    }
-
-    .quantity {
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-        margin-left: 15px;
-        margin-top: -15px;
-    }
-
-    .payment-method {
+    .form-group input {
+      width: 100%;
+      padding: 10px;
       border: 1px solid #ccc;
-      margin-top: 10px;
-      margin-left: 28px;
-      width: 470px;
-      height: 120px;
-      padding: 15px 10px;
-      border-radius: 8px;
-      background: #f9f9f9;
-      line-height: 20px;
+      border-radius: 20px;
+      font-size: 10px;
+      margin-bottom: 10px;
     }
 
-    .payment-method .payment-method-title {
-      font-size: 18px;
+    .form-row {
+      display: inline;
+      flex-direction: column;
+      margin-right: 15px;
+    }
+
+    .form-row label {
       font-weight: bold;
+      font-size: 10px;
+      color: black;
+      margin-right: 10px;
     }
 
-    .payment-method .type-of-payment {
-      font-size: 12px;
-      font-weight: normal;
-      margin-top: 10px;
+    .form-row input {
+      width: 30%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 10px;
+      margin-bottom: 10px;
     }
 
-    .go-back-button {
-        background-color: white;
-        color: black;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 20px 2px;
-        cursor: pointer;
-        border-radius: 20px;
-        transition: background-color 0.3s, transform 0.3s; 
-        margin-left: 28px;
-        width: 125px;
-        margin-top: 8px;
-        margin-bottom: -25px;
+    .form-group input[type="password"] {
+      background-color: #f9f9f9;
+    }
+
+    .form-row input[type="password"] {
+      background-color: #f9f9f9;
     }
 
     .form-actions {
       display: flex;
       justify-content: space-between;
-      margin-top: 80px;
+      margin-top: 50px;
     }
 
     .form-actions button {
@@ -215,9 +182,10 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-left: 50px;
     }
 
-    .form-actions .cancel {
+    .form-actions .go-back {
         background-color: white;
         color: black;
         border: none;
@@ -230,17 +198,17 @@
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.3s, transform 0.3s; 
-        margin-left: 250px;
-        width: 175px;
+        margin-left: 180px;
+        width: 150px;
         margin-bottom: 150px;
     }
 
-    .form-actions .cancel:hover {
+    .form-actions .go-back:hover {
         background-color: white;
         transform: scale(1.05); 
     }
 
-    .form-actions .confirm-payment {
+    .form-actions .confirm {
         background-color: white;
         color: black;
         border: none;
@@ -253,12 +221,12 @@
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.3s, transform 0.3s; 
-        width: 175px;
+        width: 150px;
         margin-right: 20px;
         margin-bottom: 150px;
     }
 
-    .form-actions .confirm-payment:hover {
+    .form-actions .confirm:hover {
         background-color: white;
         transform: scale(1.05); 
     }
@@ -295,11 +263,11 @@
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price Rate.php" class="click">PRICE RATE</a>
+            <a href="Price_Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
+            <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -307,7 +275,7 @@
           </div>
           <div class="menu-item">
             <img src="hourglass.png" alt="Hour Package">
-            <a href="Hour Package.html" class="click">HOUR PACKAGE</a>
+            <a href="Hour Package.php" class="click">HOUR PACKAGE</a>
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">
@@ -315,35 +283,40 @@
           </div>
         </div>
     <div class="content">
-      <div class="header">
-          <h1>Hour Package</h1>
-          <h2>Select Item</h2>
-      </div>
-    
+        <div class="header">
+            <h1>Hour Package</h1>
+            <h2>Select a Payment Method</h2>
+        </div>
 
-    <div class="product">
-        <div class="product-name">Product 1</div>
-        <div class="product-duration">1 Hour</div>
-        <div class="product-price">₱40.00</div>
+        <div class="payment-method-container">
+          <div class="cash-or-debit">Credit or Debit Card</div>
+          <div class="form-group">
+            <label for="card-number">CARD NUMBER</label>
+            <input type="password" id="credit-card" name="credit-card" placeholder="Enter Credit Card Here" required>
+          </div>
+
+          <div class="form-row">
+            <label for="expiry-date">EXPIRY DATE</label>
+            <input type="password" id="expiry-date" name="expiry-date" placeholder="Enter Expiry Date Here" required>
+          </div>
+          
+          <div class="form-row">
+            <label for="cvc">CVC</label>
+            <input type="password" id="cvc" name="cvc" placeholder="Enter CVC Here" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name-of-the-card-holder">NAME OF THE CARD HOLDER</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name Here" required>
+          </div>
+
+          <div class="form-actions">
+            <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
+            <a href="Hour Package Buy.html"><button class="confirm">Confirm</button></a>
+          </div>
+        </div>
+        
     </div>
-
-    <div class="quantity-buttons">
-        <div class="quantity-button">-</div>
-        <div class="quantity">1</div>
-        <div class="quantity-button">+</div>
-    </div>
-      
-    <div class="payment-method">
-        <div class="payment-method-title">Payment Method</div>
-        <div class="type-of-payment">Type of Payment:</div>
-    </div>
-
-    <div class="go-back-button">Go Back</div>
-
-      <div class="form-actions">
-        <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
-        <button class="confirm-payment">Confirm Payment</button>
-      </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>

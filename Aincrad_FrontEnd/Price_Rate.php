@@ -193,7 +193,7 @@ session_start();
           </div>
           <div class="menu-item">
             <img src="hourglass.png" alt="Hour Package">
-            <a href="Hour Package.html" class="click">HOUR PACKAGE</a>
+            <a href="Hour Package.php" class="click">HOUR PACKAGE</a>
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">

@@ -1,3 +1,7 @@
+<?php
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,9 +92,9 @@
     .content h2 {
       font-size: 20px;
       font-weight: normal;
-      margin-bottom:10px;
+      margin-bottom: 20px;
       margin-left: 30px;
-      margin-top: 0px;
+      margin-top: 40px;
       color: white;
       font-family: 'League Spartan';
     }
@@ -98,78 +102,44 @@
     .payment-method-container {
         border: 1px solid #ccc;
         margin-left: 28px;
-        width: 520px;
+        width: 400px;
         height: 250px;
         padding: 10px 30px;
         border-radius: 8px;
         background: #f9f9f9;
     }
 
-    .cash-or-debit {
+    .gcash {
         font-size: 18px;
         font-weight: bold;
         margin-left: 10px;
         margin-bottom: 10px;
-        line-height: 20px;
-        text-align: left;
+        line-height: 40px;
     }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .gcash-description {
+    font-size: 12px;
+    font-weight: normal;
+    display: inline-block;
+    align-items: center;
+    gap: 20px;
+    margin-left: 10px;
+    margin-top: 20px;
+    line-height: 15px;
     }
 
-    .form-group label {
-      font-weight: bold;
-      font-size: 10px;
-      color: black;
-      margin-bottom: -5px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      font-size: 10px;
-      margin-bottom: 10px;
-    }
-
-    .form-row {
-      display: inline;
-      flex-direction: column;
-      margin-right: 15px;
-    }
-
-    .form-row label {
-      font-weight: bold;
-      font-size: 10px;
-      color: black;
-      margin-right: 10px;
-    }
-
-    .form-row input {
-      width: 30%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      font-size: 10px;
-      margin-bottom: 10px;
-    }
-
-    .form-group input[type="password"] {
-      background-color: #f9f9f9;
-    }
-
-    .form-row input[type="password"] {
-      background-color: #f9f9f9;
+    .gcash-qr {
+      display: inline-block;
+      width: 150px;
+      height: 200px;
+      margin-left: 95px;
+      vertical-align: middle;
     }
 
     .form-actions {
       display: flex;
       justify-content: space-between;
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     .form-actions button {
@@ -178,7 +148,6 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-left: 50px;
     }
 
     .form-actions .go-back {
@@ -194,7 +163,7 @@
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.3s, transform 0.3s; 
-        margin-left: 180px;
+        margin-left: 250px;
         width: 150px;
         margin-bottom: 150px;
     }
@@ -259,11 +228,11 @@
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price Rate.php" class="click">PRICE RATE</a>
+            <a href="Price_Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
+            <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -271,7 +240,7 @@
           </div>
           <div class="menu-item">
             <img src="hourglass.png" alt="Hour Package">
-            <a href="Hour Package.html" class="click">HOUR PACKAGE</a>
+            <a href="Hour Package.php" class="click">HOUR PACKAGE</a>
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">
@@ -285,34 +254,15 @@
         </div>
 
         <div class="payment-method-container">
-          <div class="cash-or-debit">Credit or Debit Card</div>
-          <div class="form-group">
-            <label for="card-number">CARD NUMBER</label>
-            <input type="password" id="credit-card" name="credit-card" placeholder="Enter Credit Card Here" required>
-          </div>
-
-          <div class="form-row">
-            <label for="expiry-date">EXPIRY DATE</label>
-            <input type="password" id="expiry-date" name="expiry-date" placeholder="Enter Expiry Date Here" required>
-          </div>
-          
-          <div class="form-row">
-            <label for="cvc">CVC</label>
-            <input type="password" id="cvc" name="cvc" placeholder="Enter CVC Here" required>
-          </div>
-
-          <div class="form-group">
-            <label for="name-of-the-card-holder">NAME OF THE CARD HOLDER</label>
-            <input type="text" id="name" name="name" placeholder="Enter Name Here" required>
-          </div>
-
-          <div class="form-actions">
-            <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
-            <a href="Hour Package Buy.html"><button class="confirm">Confirm</button></a>
-          </div>
+          <div>
+            Scan the QR code for the GCash payment.<img src="QR.jpg" class="gcash-qr">
         </div>
         
     </div>
+      <div class="form-actions">
+        <a href="Hour Package Payment Method.html"><button class="go-back">Go Back</button></a>
+        <a href="Hour Package Buy.html"><button class="confirm">Confirm</button></a>
+      </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
     </div>

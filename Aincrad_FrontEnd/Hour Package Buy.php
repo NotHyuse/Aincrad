@@ -1,9 +1,12 @@
+<?php
+session_start();
+include("connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
     </style>
@@ -90,27 +93,94 @@
       font-weight: normal;
       margin-bottom: 20px;
       margin-left: 30px;
-      margin-top: 40px;
+      margin-top: 20px;
       color: white;
       font-family: 'League Spartan';
     }
 
-    .payment-method-container {
-        border: 1px solid #ccc;
-        margin-left: 28px;
-        width: 400px;
-        height: 200px;
-        padding: 25px 10px;
-        border-radius: 8px;
-        background: #f9f9f9;
+    .products {
+      margin-right: 50px;
+      margin-bottom: 0px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
     }
 
-    .payment-methods {
-        font-size: 18px;
-        font-weight: bold;
-        margin-left: 40px;
-        margin-bottom: 10px;
-        line-height: 40px;
+    .product {
+      width: 150px;
+      padding: 15px;
+      text-align: left;
+      border-radius: 8px;
+      background: #f9f9f9;
+      line-height: 20px;
+    }
+
+    .product .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+
+    .product .product-duration {
+      font-size: 12px;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+    
+    .product .product-price {
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 70px;
+    }
+
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0px;
+    }
+
+    .product-actions button {
+      padding: 10px 5px;
+      border: none;
+      border-radius: 5px;
+      background: #f9f9f9;
+      transition: background-color 0.3s, transform 0.3s; 
+      cursor: pointer;
+    }
+
+    .product-actions button:hover {
+      background-color: white;
+      transform: scale(1.05); 
+    }
+
+    .payment-method {
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      margin-left: 0px;
+      width: 500px;
+      height: 120px;
+      padding: 15px 10px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      line-height: 20px;
+    }
+
+    .payment-method .payment-method-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .payment-method .type-of-payment {
+      font-size: 12px;
+      font-weight: normal;
+      margin-top: 25px;
+    }
+
+    .payment-method .change-button {
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 370px;
+      cursor: pointer;
     }
 
     .form-actions {
@@ -127,7 +197,7 @@
       cursor: pointer;
     }
 
-    .form-actions .go-back {
+    .form-actions .cancel {
         background-color: white;
         color: black;
         border: none;
@@ -145,12 +215,12 @@
         margin-bottom: 150px;
     }
 
-    .form-actions .go-back:hover {
+    .form-actions .cancel:hover {
         background-color: white;
         transform: scale(1.05); 
     }
 
-    .form-actions .confirm {
+    .form-actions .buy-now {
         background-color: white;
         color: black;
         border: none;
@@ -168,7 +238,7 @@
         margin-bottom: 150px;
     }
 
-    .form-actions .confirm:hover {
+    .form-actions .buy-now:hover {
         background-color: white;
         transform: scale(1.05); 
     }
@@ -205,11 +275,11 @@
           </div>
           <div class="menu-item">
             <img src="dollar-symbol.png" alt="Price Rate">
-            <a href="Price Rate.php" class="click">PRICE RATE</a>
+            <a href="Price_Rate.php" class="click">PRICE RATE</a>
           </div>
           <div class="menu-item">
             <img src="unlock.png" alt="Edit Password">
-            <a href="Edit Password.php" class="click">EDIT PASSWORD</a>
+            <a href="Edit_Password.php" class="click">EDIT PASSWORD</a>
           </div>
           <div class="menu-item">
             <img src="credit-card.png" alt="Recharge Card">
@@ -217,7 +287,7 @@
           </div>
           <div class="menu-item">
             <img src="hourglass.png" alt="Hour Package">
-            <a href="Hour Package.html" class="click">HOUR PACKAGE</a>
+            <a href="Hour Package.php" class="click">HOUR PACKAGE</a>
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">
@@ -225,20 +295,43 @@
           </div>
         </div>
     <div class="content">
-        <div class="header">
-            <h1>Hour Package</h1>
-            <h2>Select a Payment Method</h2>
+      <div class="header">
+          <h1>Hour Package</h1>
+          <h2>Select Item</h2>
+      </div>
+    
+      <div class="product-actions">
+        <div class="products">
+          <button><div class="product">
+              <div class="product-name">Product 1</div>
+              <div class="product-duration">1 Hour</div>
+              <div class="product-price">₱40.00</div>
+          </div>
+     
+           <button><div class="product">
+              <div class="product-name">Product 2</div>
+              <div class="product-duration">3 Hours</div>
+              <div class="product-price">₱120.00</div>
+            </div></button>
+        
+          <button><div class="product">
+             <div class="product-name">Product 3</div>
+              <div class="product-duration">5 + 1 Hour</div>
+              <div class="product-price">₱200.00</div>
+          </div></button>
         </div>
-
-        <div class="payment-method-container">
-            <div class="payment-methods"><a href="Hour Package GCash.html">GCash</a></div>
-            <div class="payment-methods"><a href="Hour Package Credit or Debit.html">Credit or Debit Card</a></div>
-            <div class="payment-methods"><a href="">Link Bank Account</a></div>
-        </div>
+    
+      </div>
+      
+      <div class="payment-method">
+        <div class="payment-method-title">Payment Method</div>
+        <div class="type-of-payment">Type of Payment:</div>
+        <a href="Hour Package Payment Method.html"><div class="change-button">CHANGE</div></a>
+      </div>
 
       <div class="form-actions">
-        <a href="Hour Package Buy.html"><button class="go-back">Go Back</button></a>
-        <button class="confirm">Confirm</button>
+        <a href="Hour Package.html"><button class="cancel">Cancel</button></a>
+        <a href="Hour Package Order Details.html"><button class="buy-now">BUY NOW</button></a>
       </div>
 
       <div class="close-button"><a href="User_menu.php">✖</a></div>
