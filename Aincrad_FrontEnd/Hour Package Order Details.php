@@ -267,13 +267,14 @@ include("connect.php");
         transform: scale(1.05); 
     }
 
-    .close-button {
+    .close-button a{
       position: absolute;
       top: 10px;
       right: 20px;
       font-size: 18px;
       cursor: pointer;
       color: white;
+      text-decoration: none;
     }
 
     .click {
@@ -311,7 +312,7 @@ include("connect.php");
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">
-            <a href="Food Menu.html" class="click">FOOD MENU</a>
+            <a href="Food Menu.menu" class="click">FOOD MENU</a>
           </div>
         </div>
     <div class="content">

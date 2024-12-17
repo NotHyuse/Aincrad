@@ -275,12 +275,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             <span>PC-8</span>
           </div>
           <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
         </div>
       </div>
       

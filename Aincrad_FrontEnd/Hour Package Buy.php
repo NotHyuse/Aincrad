@@ -339,7 +339,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           <div class="menu-item">
             <img src="restaurant.png" alt="Food Menu">
-            <a href="Food Menu.html" class="click">FOOD MENU</a>
+            <a href="Food Menu.php" class="click">FOOD MENU</a>
           </div>
         </div>
     <div class="content">
